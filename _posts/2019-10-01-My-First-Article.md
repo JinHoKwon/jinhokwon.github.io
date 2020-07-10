@@ -1,6 +1,7 @@
 ---
 title: My First Article
-tags: jETA Sample
+tags: [Blog, Sample]
+categories: Blog2
 ---
  
 # Welcome
