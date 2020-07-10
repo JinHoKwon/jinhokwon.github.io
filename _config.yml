@@ -93,10 +93,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Jinho Kwon"
+  name             : #"Jinho Kwon"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "http://www.interpark.com"
-  location         : "South Korea"
+  bio              : #"http://www.interpark.com"
+  location         : #"South Korea"
   email            :
   links:
     - label: "Email"
