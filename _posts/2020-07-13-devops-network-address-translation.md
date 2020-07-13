@@ -2,8 +2,8 @@
 title: Network Address Translation
 tags: [devops, network]
 categories: devops
-
-
+header:
+  teaser: "/assets/images/network.png"
 ---
 네트워크 주소변환(NAT)은 
 사설 IP(내부 네트워크)를 공인 IP로 변경하거나,

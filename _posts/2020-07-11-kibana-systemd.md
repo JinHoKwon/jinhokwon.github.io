@@ -2,7 +2,10 @@
 title: Kibana systemd 설정
 tags: [devops, kibana]
 categories: devops
+header:
+  teaser: "/assets/images/kibana.png"
 ---
+
 Kibana는 실행시점에 /var/run/kibana 디렉토리에 PID를 기록하는데 
 이 때, /var/run/kibana 디렉토리가 없거나, 
 /var/run/kibana 디렉토리의 쓰기 권한이 없을 경우

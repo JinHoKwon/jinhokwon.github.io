@@ -2,6 +2,8 @@
 title: Elasticsearch object vs nested
 tags: [devops, elasticsearch]
 categories: devops
+header:
+  teaser: "/assets/images/elasticsearch.png"
 ---
 Elasticsearch object 타입은 object 타입내에 포함된 properties 에 대한 연관성 정보가 없지만,
 Elasticsearch nested 타입은 nested 타입내에 포함된 properties 에 대한 연관성 정보가 있습니다.

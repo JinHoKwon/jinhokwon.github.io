@@ -2,8 +2,8 @@
 title: Host only network
 tags: [devops, network]
 categories: devops
-
-
+header:
+  teaser: "/assets/images/network.png"
 ---
 Host only network는
 외부와 단절된 내부 네트워크를 구축할 때 사용합니다.
