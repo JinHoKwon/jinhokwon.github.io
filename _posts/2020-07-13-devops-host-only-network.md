@@ -1,6 +1,6 @@
 ---
 title: Host only network
-tags: devops
+tags: [devops, network]
 categories: devops
 
 

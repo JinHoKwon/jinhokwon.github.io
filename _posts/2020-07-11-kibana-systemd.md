@@ -1,6 +1,6 @@
 ---
 title: Kibana systemd 설정
-tags: devops
+tags: [devops, kibana]
 categories: devops
 ---
 Kibana는 실행시점에 /var/run/kibana 디렉토리에 PID를 기록하는데 

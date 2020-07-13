@@ -1,6 +1,6 @@
 ---
 title: Network Address Translation
-tags: devops
+tags: [devops, network]
 categories: devops
 
 
