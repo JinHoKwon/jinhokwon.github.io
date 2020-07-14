@@ -4,22 +4,24 @@ main:
     url: /tags/
   - title: "categories"
     url: /categories/
+  - title: "years"
+    url: /years/  
   - title: "about"
     url: /about/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
-#docs:
-#  - title: "aaa"  
-#    children:
-#      - title: "Quick-Start Guide"
-#        url: /docs/quick-start-guide/
-#      - title: "Structure"
-#        url: /docs/structure/
-#      - title: "Installation"
-#        url: /docs/installation/
-#      - title: "Upgrading"
-#        url: /docs/upgrading/
+docs:
+  - title: "Link"  
+    children:
+      - title: "Google"
+        url: "https://www.google.co.kr/"
+      - title: "DZone"
+        url: "https://dzone.com/"
+      - title: "Baeldung"
+        url: "https://www.baeldung.com/"
+      - title: "Stackoverflow"
+        url: "https://stackoverflow.com/"
         
         
