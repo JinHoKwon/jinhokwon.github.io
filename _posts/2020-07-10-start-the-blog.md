@@ -1,7 +1,7 @@
 ---
 title: 다시 시작하는 블로그
-tags: Blog
-categories: Blog
+tags: blog
+categories: blog
 ---
 
 ##### Que sera sera 
