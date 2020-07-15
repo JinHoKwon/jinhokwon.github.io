@@ -6,7 +6,7 @@ header:
   teaser: "/assets/images/redis.png"
 ---
 
-# 1. Redis cluster 개요
+## 1. Redis cluster 개요
 
 * Redis cluster는 v3.0 이상 버전에서만 지원됩니다.
 
@@ -26,9 +26,9 @@ header:
 
 
 
-# 2. Redis cluster 구축
+## 2. Redis cluster 구축
 
-### 2-1. Redis 컴파일 및 설치
+#### 2-1. Redis 컴파일 및 설치
 
 ```sh
 # curl -O -L http://download.redis.io/releases/redis-5.0.5.tar.gz
@@ -59,7 +59,7 @@ header:
 
 
 
-### 2-2. Redis1 ~ Redis6 설정
+#### 2-2. Redis1 ~ Redis6 설정
 
 /usr/local/redis[1-6]/conf/redis.conf 파일 수정
 
@@ -94,7 +94,7 @@ daemonize no
 
 
 
-### 2-3. Redis1 ~ Redis6 서버 실행
+#### 2-3. Redis1 ~ Redis6 서버 실행
 
 ```sh
 # /usr/local/redis1/bin/redis-server /usr/local/redis1/conf/redis.conf
@@ -107,7 +107,7 @@ daemonize no
 
 
 
-### 2-4. Redis1 ~ Redis6 클러스터 초기화
+#### 2-4. Redis1 ~ Redis6 클러스터 초기화
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7001 flushall && redis-cli -c -h 192.168.56.21 -p 7001 cluster reset
@@ -120,7 +120,7 @@ daemonize no
 
 
 
-### 2-5. Redis cluster 생성
+#### 2-5. Redis cluster 생성
 
 먼저 설정된 192.168.56.21:[7001-7003] 번 서버가 Master로, 
 
@@ -188,9 +188,9 @@ S: 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005
 
 
 
-# 3. Redis cluster 상태 조회
+## 3. Redis cluster 상태 조회
 
-### 3-1. Redis cluster 정보 조회
+#### 3-1. Redis cluster 정보 조회
 
 ```sh
 # redis-cli -h 127.0.0.1 -p 7001 cluster info
@@ -214,7 +214,7 @@ cluster_stats_messages_received:286
 
 
 
-### 3-2. Redis cluster 노드 조회
+#### 3-2. Redis cluster 노드 조회
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7001 cluster nodes
@@ -228,7 +228,7 @@ e7ff69cf6f4bf0d24b633d304e26bca068cd6230 192.168.56.21:7003@17003 master - 0 159
 
 
 
-# 4. Redis cluster 체크
+## 4. Redis cluster 체크
 
 ```sh
 # redis-cli --cluster check 192.168.56.21:7001
@@ -264,7 +264,7 @@ S: 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005
 
 
 
-# 5. Redis cluster 값 입력 및 조회
+## 5. Redis cluster 값 입력 및 조회
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7001 set foo bar
@@ -288,9 +288,9 @@ OK
 
 
 
-# 6. Redis cluster failover
+## 6. Redis cluster failover
 
-### 6-1. 7003 master 노드 제거
+#### 6-1. 7003 master 노드 제거
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7003 debug segfault
@@ -298,9 +298,7 @@ OK
 
 
 
-
-
-### 6-2. Redis cluster 상태 조회
+#### 6-2. Redis cluster 상태 조회
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7001 cluster info
@@ -324,7 +322,7 @@ cluster_stats_messages_received:1336
 
 
 
-### 6-3. Redis cluster 노드 조회
+#### 6-3. Redis cluster 노드 조회
 
 최초 slave 였던 7004번 노드가 master 로 승격되었고, 기존 7003번 노드는 fail로 표시됨.
 
@@ -342,7 +340,7 @@ e7ff69cf6f4bf0d24b633d304e26bca068cd6230 192.168.56.21:7003@17003 master,fail - 
 
 
 
-### 6-4. 7003 master 노드 재시작
+#### 6-4. 7003 master 노드 재시작
 
 ```sh
 # /usr/local/redis3/bin/redis-server /usr/local/redis3/conf/redis.conf
@@ -352,7 +350,7 @@ e7ff69cf6f4bf0d24b633d304e26bca068cd6230 192.168.56.21:7003@17003 master,fail - 
 
 
 
-# 7. Redis cluster 노드 조회
+## 7. Redis cluster 노드 조회
 
 7003 노드는 slave 로 다시 클러스터에 연결되었음.
 
