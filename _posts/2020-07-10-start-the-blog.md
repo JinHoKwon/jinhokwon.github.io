@@ -1,5 +1,6 @@
 ---
 title: 다시 시작하는 블로그
+comments: true
 tags: blog
 categories: blog
 ---

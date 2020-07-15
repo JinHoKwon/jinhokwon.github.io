@@ -1,5 +1,6 @@
 ---
 title: Elasticsearch object vs nested
+comments: true
 tags: [devops, elasticsearch]
 categories: devops
 header:

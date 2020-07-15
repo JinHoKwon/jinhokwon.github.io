@@ -1,5 +1,6 @@
 ---
 title: Kibana systemd 설정
+comments: true
 tags: [devops, kibana]
 categories: devops
 header:

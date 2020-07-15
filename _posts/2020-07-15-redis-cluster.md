@@ -1,5 +1,6 @@
 ---
 title: Redis cluster
+comments: true
 tags: [devops, redis]
 categories: redis
 header:
