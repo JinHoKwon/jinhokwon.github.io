@@ -1,6 +1,7 @@
 ---
 title: Host only network
 tags: [devops, network]
+comments: true
 categories: devops
 header:
   teaser: "/assets/images/network.png"
