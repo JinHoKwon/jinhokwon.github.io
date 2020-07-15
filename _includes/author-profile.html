@@ -254,5 +254,109 @@
   
   
 
-  
 </div>
+
+
+
+<!-- 카테고리 -->
+{% assign categories_max = 0 %}
+{% for category in site.categories %}
+  {% if category[1].size > categories_max %}
+    {% assign categories_max = category[1].size %}
+  {% endif %}
+{% endfor %}
+
+<nav class="nav__list">
+    <input id="ac-toc" name="accordion-toc" type="checkbox">
+    <label for="ac-toc">Toggle menu</label>
+    <ul class="nav__items">    
+        <li>        
+            <span class="nav__sub-title">카테고리</span>               
+            <ul>        
+              {% for i in (1..categories_max) reversed %}
+                {% for category in site.categories %}
+                  {% if category[1].size == i %}
+                    <li class="sidebar__menu-link">
+                      <a href="/categories/#{{ category[0] | slugify }}">
+                        {{ category[0] }} <span class="category__menu-item"><strong>({{ i }})</strong></span>
+                      </a>
+                    </li>
+                    
+                  {% endif %}      
+                {% endfor %}
+              {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</nav>
+  
+<!-- 태그 -->
+  
+{% assign tags_max = 0 %}
+{% for tag in site.tags %}
+  {% if tag[1].size > tags_max %}
+    {% assign tags_max = tag[1].size %}
+  {% endif %}
+{% endfor %}
+
+
+<nav class="nav__list">
+    <input id="ac-toc" name="accordion-toc" type="checkbox">
+    <label for="ac-toc">Toggle menu</label>
+    <ul class="nav__items">    
+        <li>        
+            <span class="nav__sub-title">태그</span>               
+            <ul>        
+              {% for i in (1..tags_max) reversed %}
+                {% for tag in site.tags %}
+                  {% if tag[1].size == i %}
+                    <li class="sidebar__menu-link">
+                      <a href="/tags/#{{ tag[0] | slugify }}">
+                        {{ tag[0] }} <span class="tag__menu-item"><strong>({{ i }})</strong></span>
+                      </a>
+                    </li>
+                    
+                  {% endif %}      
+                {% endfor %}
+              {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<!--
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox">
+  <label for="ac-toc">Toggle menu</label>
+  <ul class="nav__items">    
+      <li>        
+          <span class="nav__sub-title">즐겨찾기</span>               
+        <ul>
+            <li><a href="/tags/#java">Java</a></li>
+            <li><a href="/tags/#redis">Redis</a></li>
+            <li><a href="/tags/#elasticsearch">Elasticsearch</a></li>
+            <li><a href="/tags/#mysql">MySQL</a></li>
+        </ul>
+      </li>  
+  </ul>
+</nav>
+-->
+
+<!--
+{% for i in (1..tags_max) reversed %}
+  {% for tag in site.tags %}
+    {% if tag[1].size == i %}
+      <section id="{{ tag[0] | slugify | downcase }}" class="taxonomy__section">
+        <h2 class="archive__subtitle">{{ tag[0] }}</h2>
+        <div class="entries-{{ page.entries_layout | default: 'list' }}">
+          {% for post in tag.last %}
+            {% include archive-single.html type=page.entries_layout %}
+          {% endfor %}
+        </div>
+        <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
+      </section>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+-->
