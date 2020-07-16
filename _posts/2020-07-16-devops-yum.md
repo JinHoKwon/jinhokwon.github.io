@@ -8,7 +8,7 @@ header:
 ---
 # 1. yum 설정
 
-#### yum ssl 비활성화
+#### 1-1. yum ssl 비활성화
 
 /etc/yum.conf 파일 편집후 `sslverify=false`항목을 추가함.
 
