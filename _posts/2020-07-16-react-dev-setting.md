@@ -662,48 +662,79 @@ To create a production build, use npm run build.
 
 
 
-# 7. React button
 
-#### 7-1. React button 프로젝트 생성
+
+# 7. React props 
+
+* props는 단방향 데이터 바인딩
+
+* props는 readonly (즉, 불변객체)
+
+* props는 타입지정 가능
+
+* props는 required 지정 가능
+
+* props는 기본값 설정 가능
+
+  
+
+#### 7-1. React props 프로젝트 생성
 
 ```sh
-# cd /tmp
-# create-react-app button
-# cd button
+# create-react-app props
+# cd props
 ```
 
 
 
-### 7-2. button/src/App.js 
+#### 7-2. props/src/index.js
 
-react 에서는 로컬 변수를 읽기 전용 변수인 props와 읽기+쓰기가 가능한 state 변수로 
+user와 age 변수는 읽기전용으로 App 컴퍼넌트로 전달됩니다.
 
-구분하여 사용을 합니다. 
+```react
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />        
+    <App user="james" age="20" />        
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+```
+
+
+
+#### 7-2. props/src/App.js 
+
+앞에서 전달받은 user, age 변수는 this.props.user, this.props.age 와 같은 형태로 접근이 가능하며,
+
+기본값 또한 다음과 같이 설정할 수 있습니다.
 
 ```react
 import React from 'react';
 
 class App extends React.Component {
-	constructor(props) {
-    	super(props);
-    	this.state = {
-            // 값 변경이 가능하게끔 선언된 defaultAlertMsg 로컬 변수
-      		defaultAlertMsg: 'default message'
-    	}
-    	this.showAlert = this.showAlert.bind(this);
-  	}
+    constructor(props) {
+        super(props);
+    }
 
-  	showAlert(msg) {
-    	alert(msg);
-  	}
-
-  	render() {
-    	return (
-        	<div>
-      			<button onClick={e => this.showAlert(this.state.defaultAlertMsg)}>click me</button>
-	    	</div>
-    	);
-  	}
+    render() {
+        return (
+            <div>
+                <h1>Hello {this.props.user || 'default name'}, {this.props.age || 19} </h1>
+            </div>
+        );
+    }
 }
 
 export default App;
@@ -713,7 +744,70 @@ export default App;
 
 
 
-#### 7-3. 결과확인
+#### 7-3. React props 결과확인
+
+```sh
+# npm start
+```
+
+![react_dev_env_setting](/assets/images/react/react_props.png)
+
+
+
+
+
+# 8. React button
+
+#### 8-1. React button 프로젝트 생성
+
+```sh
+# cd /tmp
+# create-react-app button
+# cd button
+```
+
+
+
+#### 8-2. button/src/App.js 
+
+react 에서는 로컬 변수를 읽기 전용 변수인 props와 읽기+쓰기가 가능한 state 변수로 
+
+구분하여 사용을 합니다. 
+
+```react
+import React from 'react';
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            // 값 변경이 가능하게끔 선언된 defaultAlertMsg 로컬 변수
+            defaultAlertMsg: 'default message'
+        }
+        this.showAlert = this.showAlert.bind(this);
+    }
+
+    showAlert(msg) {
+        alert(msg);
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={e => this.showAlert(this.state.defaultAlertMsg)}>click me</button>
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+
+
+
+
+#### 8-3. 결과확인
 
 ```sh
 # npm start
