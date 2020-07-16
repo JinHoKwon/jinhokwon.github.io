@@ -18,6 +18,8 @@ header:
 
 
 
+<br/>
+
 # 2. React 사용시 알고 있어야 할 ECMAScript 6 요약
 
 #### 2-1. var
@@ -31,7 +33,7 @@ if(a > 0){
 console.log(a); // 200 출력
 ```
 
-
+<br/>
 
 #### 2-2. let
 
@@ -44,7 +46,7 @@ if(a > 0){
 console.log(a); // 100 출력
 ```
 
-
+<br/>
 
 #### 2-3. const
 
@@ -54,7 +56,7 @@ const MY_NAME = 'Kim';
 MY_NAME = 'Lee'; // 값을 변경하려 하면 TypeError발생
 ```
 
-
+<br/>
 
 #### 2-4. arrow function
 
@@ -71,7 +73,7 @@ let add = (a, b) => {
 }
 ```
 
-
+<br/>
 
 블록 구문 `{}`을 생략한 표현식 사용은 가능 하지만 이 경우 `return`은 사용 불가능합니다.
 
@@ -85,7 +87,7 @@ let add = (a, b) => {
 let add = (a, b) => console.log(a + b);
 ```
 
-
+<br/>
 
 단일 인자만 넘겨받는 경우 `{}`괄호 생략도 가능합니다.
 
@@ -99,7 +101,7 @@ let print = message => document.write(message);
 
 
 
-
+<br/>
 
 #### 2-5. 펼침 연산자(spread operator)
 
@@ -126,7 +128,7 @@ console.log(a) //[1,2,3]
 console.log(b) //[1,2,3,4]
 ```
 
-
+<br/>
 
 #### 2-6. 클래스 (class)
 
@@ -144,7 +146,7 @@ const display = new Display();
 display.print();
 ```
 
-
+<br/>
 
 #### 2-7. 상속
 
@@ -161,9 +163,9 @@ class Display{
 }
 ```
 
+<br/>
 
-
-선언된 Display 클래스를 React클래스 선언문 뒤에 Extends를 붙여 Display클래스를 상속 받고 있습니다.
+선언된 Display 클래스를 React클래스 선언문 뒤에 Extends를 붙여 Display클래스를 상속 받고 있습니다.  
 
 ```javascript
 class React extends Display {
@@ -177,7 +179,7 @@ class React extends Display {
 }
 ```
 
-
+<br/>
 
 # 3. React JSX
 
@@ -191,7 +193,7 @@ JSX에서는 꼭 지켜야할 규칙들이 몇가지 있습니다.
 
 
 
-
+<br/>
 
 #### 3-1. 닫혀야 하는 태그
 
@@ -214,13 +216,13 @@ class App extends Component {
 export default App;
 ```
 
-
+<br/>
 
 #### 3-2. 감싸져 있는 엘리먼트
 
 두개 이상의 엘리먼트는 무조건 하나의 엘리먼트로 감싸져있어야 합니다.
 
-
+<br/>
 
 div 로 해결한 경우
 
@@ -241,7 +243,7 @@ class App extends Component {
 export default App;
 ```
 
-
+<br/>
 
 Fragment 로 해결한 경우
 
@@ -263,7 +265,7 @@ class App extends Component {
 export default App;
 ```
 
-
+<br/>
 
 #### 3-3. JSX 안에 자바스크립트 값 사용
 
@@ -284,7 +286,7 @@ class App extends Component {
 export default App;
 ```
 
-
+<br/>
 
 #### 3-4. CSS 작성 : 인라인 스타일
 
@@ -323,7 +325,7 @@ class App extends Component {
 export default App;
 ```
 
-
+<br/>
 
 #### 3-5. CSS 작성 : 외부파일 불러오기
 
@@ -333,7 +335,7 @@ export default App;
 import './App.css' // 불러오기
 ```
 
-
+<br/>
 
 
 
@@ -353,7 +355,7 @@ React DOM은 HTML 어트리뷰트(attribute) 이름 대신 캐멀케이(camelCas
 
 **class 어트리뷰트는 JavaScript의 예약어이므로 className으로 작성**합니다.
 
-
+<br/>
 
 # 4. React 개발환경구축 
 
@@ -377,7 +379,7 @@ sslverify=false
 installonly_limit=5
 ```
 
-
+<br/>
 
 #### 4-2. nodejs 설치
 
@@ -385,7 +387,7 @@ installonly_limit=5
 # yum -y install nodejs
 ```
 
-
+<br/>
 
 #### 4-3. npm ssl 비활성화
 
@@ -395,7 +397,7 @@ installonly_limit=5
 # npm config set strict-ssl false
 ```
 
-
+<br/>
 
 #### 4-4.  create-react-app 설치
 
@@ -403,7 +405,7 @@ installonly_limit=5
 # npm install -g create-react-app
 ```
 
-
+<br/>
 
 #### 4-5. node, npm, create-react-app 버전 확인
 
@@ -418,7 +420,7 @@ v10.21.0
 3.4.1
 ```
 
-
+<br/>
 
 # 5. React render
 
@@ -428,7 +430,7 @@ container에 element를 출력할 수 있습니다.
 
 
 
-
+<br/>
 
 #### 5-1. React render 프로젝트 생성
 
@@ -455,7 +457,7 @@ index.html 의 div 태그 안에 결과가 표시되며,
 
 
 
-
+<br/>
 
 #### 5-2. /render/public/index.html 
 
@@ -509,7 +511,7 @@ index.html 파일에 위치하고 있는 div 태그안에 최종 결과물이 �
 
 
 
-
+<br/>
 
 #### 5-3. /render/src/index.js
 
@@ -517,7 +519,7 @@ index.html 파일에 위치하고 있는 div 태그안에 최종 결과물이 �
 
 최종 출력될 위치는 2번째 인자로 설정합니다.
 
-
+<br/>
 
 App 컴퍼넌트와 Footer 컴퍼넌트를 사용하기 위해서 import 합니다.
 
@@ -545,7 +547,7 @@ serviceWorker.unregister();
 
 
 
-
+<br/>
 
 #### 5-4. /render/src/App.js
 
@@ -581,7 +583,7 @@ function App() {
 export default App;
 ```
 
-
+<br/>
 
 #### 5-5. /render/src/Footer.js
 
@@ -601,7 +603,7 @@ function Footer() {
 export default Footer;
 ```
 
-
+<br/>
 
 
 
@@ -623,7 +625,7 @@ To create a production build, use npm run build.
 
 ![react_dev_env_setting](/assets/images/react_dev_env_setting.png)
 
-
+<br/>
 
 
 
@@ -636,7 +638,7 @@ To create a production build, use npm run build.
 # npm run build
 ```
 
-
+<br/>
 
 #### 6-2. react app 배포
 
@@ -650,7 +652,7 @@ To create a production build, use npm run build.
 # cp -rf build/static/media/*  	$NGINX_HOME/html/media/
 ```
 
-
+<br/>
 
 #### 6-3. nginx reload
 
@@ -660,7 +662,7 @@ To create a production build, use npm run build.
 # nginx.exe -c conf/nginx.conf
 ```
 
-
+<br/>
 
 
 
@@ -678,6 +680,8 @@ To create a production build, use npm run build.
 
   
 
+<br/>
+
 #### 7-1. React props 프로젝트 생성
 
 ```sh
@@ -685,7 +689,7 @@ To create a production build, use npm run build.
 # cd props
 ```
 
-
+<br/>
 
 #### 7-2. props/src/index.js
 
@@ -712,9 +716,9 @@ ReactDOM.render(
 serviceWorker.unregister();
 ```
 
+<br/>
 
-
-#### 7-2. props/src/App.js 
+#### 7-3. props/src/App.js 
 
 앞에서 전달받은 user, age 변수는 this.props.user, this.props.age 와 같은 형태로 접근이 가능하며,
 
@@ -740,11 +744,11 @@ class App extends React.Component {
 export default App;
 ```
 
+<br/>
 
 
 
-
-#### 7-3. React props 결과 확인
+#### 7-4. React props 결과 확인
 
 ```sh
 # npm start
@@ -752,7 +756,7 @@ export default App;
 
 ![react_dev_env_setting](/assets/images/react/react_props.png)
 
-
+<br/>
 
 
 
@@ -766,7 +770,7 @@ export default App;
 # cd state
 ```
 
-
+<br/>
 
 #### 8-2. state/src/App.js 
 
@@ -804,7 +808,7 @@ export default App;
 
 
 
-
+<br/>
 
 #### 8-3. React state 결과 확인
 
@@ -814,7 +818,7 @@ export default App;
 
 ![react_dev_env_setting](/assets/images/react/react_state.png)
 
-
+<br/>
 
 
 
@@ -832,7 +836,7 @@ export default App;
 # cd button
 ```
 
-
+<br/>
 
 #### 9-2. button/src/App.js 
 
@@ -869,14 +873,90 @@ class App extends React.Component {
 export default App;
 ```
 
+<br/>
 
 
 
-
-#### 9-3. 결과확인
+#### 9-3. React button 결과 확인
 
 ```sh
 # npm start
 ```
 
 ![react_dev_env_setting](/assets/images/react/react_button.png)
+
+
+
+<br/>
+
+# 10. React life cycle
+
+컴퍼넌트가 load되거나, unload 되는 시점에 특정 행위가 필요한 경우,
+
+React life cycle를 활용할 수 있습니다.
+
+* componentDidMount : 컴퍼넌트가 load 되었을 때 호출됨.
+* componentWillUnmount : 컴퍼넌트가 unload 되었을 때 호출됨.
+
+<br/>
+
+#### 10-1. React life cycle 프로젝트 생성
+
+```sh
+# cd /tmp
+# create-react-app life
+# cd life
+```
+
+<br/>
+
+#### 10-2. life/src/App.js
+
+```react
+import React from 'react';
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {date: new Date()};
+    }
+
+    componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    tick() {
+        this.setState({
+            date: new Date()
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Hello, world!</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+<br/>
+
+#### 10-3. React life cycle 실행 결과 확인
+
+```sh
+# npm start
+```
+
+![react_dev_env_setting](/assets/images/react/react_life.png)
+
+<br/>
+
