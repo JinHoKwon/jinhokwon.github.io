@@ -11,6 +11,14 @@ header:
 
 * Redis cluster는 v3.0 이상 버전에서만 지원됩니다.
 
+* Redis cluster는 1개의 primary node와 n개의 replica node로 구성이 됩니다. 
+
+* Primary node와 Replica node 사이의 데이터 동기화는 비동기 방식으로 진행이 됩니다.
+
+* Primary node의 I/O 요청이 많을 경우, 동기화 과정이 지연처리 될 수 있습니다.
+
+  ※ 즉, Primary node와 Replica node의 데이터가 서로 다를수 있음. 
+
 * 최대 1000 대의 노드까지 확장 할 수 있습니다.
 
 * 클러스터가 활성화 된 이후에도 노드의 추가 및 삭제가 가능합니다.
@@ -21,9 +29,36 @@ header:
   HashSlot = CRC16(Key) % 16384
   ```
 
-* Redis cluster 환경에서 복제서버가 있는 경우, Fail over 가 자동으로 진행됩니다. (약 1분 이내 fail over가 진행됨.)
+* Redis cluster 환경에서 Replica node가 있는 경우, Fail over 가 자동으로 진행됩니다. (약 1분 이내 fail over가 진행됨.)
+
+* Redis cluster 환경에서 Replica node가 많을 수록, 복제 비용또한 비례해서 증가합니다. 
+
+  ※ 보통은 Primary node 1대에 Replica node 2대로 셋팅함.
+
+* Replica node는 쓰기가 불가능 하지만, 클러스터 모드로 접속시 쓰기가 가능합니다.
+
+  포트 7005번이 Replica node라고 가정함.
+
+  ```sh
+  Replica node 에서 쓰기가 불가능함.
+  $ redis-cli -h 192.168.56.21 -p 7005 set korea seoul   
+  (error) MOVED 1583 192.168.56.21:7001
+  
+  반면에
+  Replica node에 접속하지만, cluster 옵션(-c)을 추가한 경우, 쓰기가 가능함.
+  $ redis-cli -c -h 192.168.56.21 -p 7005 set korea seoul   
+  OK
+  ```
 
 * Redis cluster 환경에서는 더 이상 센티넬이 필요하지 않습니다. 
+
+* Redis cluster 환경에서 일부 Primary node가 다운이 된 경우, 부분적으로 서비스를 제공하지만,
+
+  과반수 이상의 Primary node가 다운이 된 경우, 클러스터는 정상 동작하지 않습니다.
+
+  
+  
+  
 
 
 
@@ -153,7 +188,7 @@ S: 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005
    replicates daef2da51cc05e6e34261dab970875dca7e4ddd3
 S: 4312709338a49387e691ad772ecf13e3cb995a1f 192.168.56.21:7006
    replicates a9cc4070b0bb561a2c7e2c53e32dfa9f8a4a5018
-Can I set the above configuration? (type 'yes' to accept): yes     <-- yes라고 입력하고 엔터
+Can I set the above configuration? (type 'yes' to accept): yes  # yes라고 입력하고 엔터
 
 >>> Nodes configuration updated
 >>> Assign a different config epoch to each node
@@ -267,10 +302,15 @@ S: 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005
 
 ## 5. Redis cluster 값 입력 및 조회
 
+#### 5-1. Redis cluster에 값 쓰기
+
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7001 set foo bar
 OK
+```
 
+#### 5-2. Redis cluster에 값 읽기
+```sh
 # redis-cli -c -h 192.168.56.21 -p 7002 get foo
 "bar"
 
@@ -287,7 +327,12 @@ OK
 "bar"
 ```
 
+#### 5-3. Redis cluster에 값 위치 조회 
 
+```sh
+# redis-cli -c -h 192.168.56.21 -p 7002 cluster keyslot foo 
+(integer) 12182
+```
 
 ## 6. Redis cluster failover
 
