@@ -610,7 +610,15 @@ export default Footer;
 ```sh
 # npm start
 Starting the development server...
+Compiled successfully!
 
+You can now view render in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://10.0.2.15:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
 ```
 
 ![react_dev_env_setting](/assets/images/react_dev_env_setting.png)
@@ -652,3 +660,63 @@ Starting the development server...
 # nginx.exe -c conf/nginx.conf
 ```
 
+
+
+# 7. React button
+
+#### 7-1. React button 프로젝트 생성
+
+```sh
+# cd /tmp
+# create-react-app button
+# cd button
+```
+
+
+
+### 7-2. button/src/App.js 
+
+react 에서는 로컬 변수를 읽기 전용 변수인 props와 읽기+쓰기가 가능한 state 변수로 
+
+구분하여 사용을 합니다. 
+
+```react
+import React from 'react';
+
+class App extends React.Component {
+	constructor(props) {
+    	super(props);
+    	this.state = {
+            // 값 변경이 가능하게끔 선언된 defaultAlertMsg 로컬 변수
+      		defaultAlertMsg: 'default message'
+    	}
+    	this.showAlert = this.showAlert.bind(this);
+  	}
+
+  	showAlert(msg) {
+    	alert(msg);
+  	}
+
+  	render() {
+    	return (
+        	<div>
+      			<button onClick={e => this.showAlert(this.state.defaultAlertMsg)}>click me</button>
+	    	</div>
+    	);
+  	}
+}
+
+export default App;
+```
+
+
+
+
+
+#### 7-3. 결과확인
+
+```sh
+# npm start
+```
+
+![react_dev_env_setting](/assets/images/react/react_button.png)
