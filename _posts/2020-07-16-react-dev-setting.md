@@ -435,6 +435,14 @@ container에 element를 출력할 수 있습니다.
 
 
 
+이렇게 생성된 틀을 살펴보면, 
+
+index.html 의 div 태그 안에 결과가 표시되며,
+
+해당 결과는 각각 분리된 컴퍼넌트로 개발이 진행됩니다.
+
+
+
 ![react_dev_env_setting](/assets/images/react_dev_flow_div.png)
 
 
