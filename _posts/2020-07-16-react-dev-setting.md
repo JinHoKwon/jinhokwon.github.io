@@ -779,6 +779,8 @@ class App extends React.Component {
         this.state = {
             clickCount: 0
         }
+        
+        this.myClick = this.myClick.bind(this);
     }
     
     myClick() {
@@ -820,9 +822,9 @@ export default App;
 
 
 
-# 8. React button
+# 9. React button
 
-#### 8-1. React button 프로젝트 생성
+#### 9-1. React button 프로젝트 생성
 
 ```sh
 # cd /tmp
@@ -832,7 +834,7 @@ export default App;
 
 
 
-#### 8-2. button/src/App.js 
+#### 9-2. button/src/App.js 
 
 react 에서는 로컬 변수를 읽기 전용 변수인 props와 읽기+쓰기가 가능한 state 변수로 
 
@@ -871,7 +873,7 @@ export default App;
 
 
 
-#### 8-3. 결과확인
+#### 9-3. 결과확인
 
 ```sh
 # npm start
