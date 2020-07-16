@@ -744,13 +744,77 @@ export default App;
 
 
 
-#### 7-3. React props 결과확인
+#### 7-3. React props 결과 확인
 
 ```sh
 # npm start
 ```
 
 ![react_dev_env_setting](/assets/images/react/react_props.png)
+
+
+
+
+
+# 8. React state
+
+#### 8-1. React state 프로젝트 생성
+
+```sh
+# cd /tmp
+# create-react-app state
+# cd state
+```
+
+
+
+#### 8-2. state/src/App.js 
+
+```react
+import React from 'react';
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            clickCount: 0
+        }
+    }
+    
+    myClick() {
+        this.setState({
+            clickCount: this.state.clickCount + 1
+        });
+    }
+    
+    render() {
+        return (
+            <div>
+				<input type="button" value="Click!" onClick={this.myClick}/><br/>
+                <p>{this.state.clickCount}</p>
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+
+
+
+
+#### 8-3. React state 결과 확인
+
+```sh
+# npm start
+```
+
+![react_dev_env_setting](/assets/images/react/react_state.png)
+
+
+
+
 
 
 
