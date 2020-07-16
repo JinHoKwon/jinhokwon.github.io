@@ -409,8 +409,13 @@ installonly_limit=5
 
 ```sh
 # node -v
+v10.21.0
+
 # npm -v
+6.14.4
+
 # create-react-app --version
+3.4.1
 ```
 
 
@@ -429,7 +434,10 @@ container에 element를 출력할 수 있습니다.
 
 ```sh
 # cd /tmp
+
 # create-react-app render
+[  ................] | fetchMetadata: sill resolveWithNewModule scheduler@0.19.1 checking installable status
+
 # cd render
 ```
 
@@ -450,6 +458,8 @@ index.html 의 div 태그 안에 결과가 표시되며,
 
 
 #### 5-2. /render/public/index.html 
+
+index.html 파일에 위치하고 있는 div 태그안에 최종 결과물이 출력됩니다.
 
 ```html
 <!DOCTYPE html>
@@ -503,6 +513,14 @@ index.html 의 div 태그 안에 결과가 표시되며,
 
 #### 5-3. /render/src/index.js
 
+각각의 컴퍼넌트(예제에서는 App, Footer 컴퍼넌트)가 명시되며,
+
+최종 출력될 위치는 2번째 인자로 설정합니다.
+
+
+
+App 컴퍼넌트와 Footer 컴퍼넌트를 사용하기 위해서 import 합니다.
+
 ```react
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -530,6 +548,8 @@ serviceWorker.unregister();
 
 
 #### 5-4. /render/src/App.js
+
+App 컴퍼넌트에 랜더링될 내용을 기록합니다.
 
 ```react
 import React from 'react';
@@ -565,6 +585,8 @@ export default App;
 
 #### 5-5. /render/src/Footer.js
 
+Footer 컴퍼넌트에 랜더링될 내용을 기록합니다.
+
 ```react
 import React from 'react';
 
@@ -587,6 +609,8 @@ export default Footer;
 
 ```sh
 # npm start
+Starting the development server...
+
 ```
 
 ![react_dev_env_setting](/assets/images/react_dev_env_setting.png)
