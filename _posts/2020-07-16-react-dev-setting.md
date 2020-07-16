@@ -960,3 +960,200 @@ export default App;
 
 <br/>
 
+
+
+# 11. React redux 
+
+redux 에서는 action을 dispatch하여 상태값을 변경할 수 있습니다.
+
+이 때, 다음과 같은 함수들이 사용이 됩니다.
+
+* **mapStateProps** : state를 props로 연결해 주는 함수
+* **mapDispatchToProps** : dispatch한 함수를 props로 연결해 주는 함수
+* **mergeProps** : state와 dispatch를 파라미터로 가진 함수, 두 개 동시에 사용할 때 사용하는 함수.
+
+<br />
+
+그리고, Reducer는 순수 함수로만 작성되어야 합니다.
+
+- 외부 네트워크 혹은 데이터베이스에 접근하지 않아야 합니다.
+- return 값은 오직 parameter 값에만 의존되어야 합니다.
+- 인수는 변경되지 않아야 합니다.
+- 같은 인수로 실행된 함수는 언제나 같은 결과를 반환해야 합니다.
+- 순수하지 않은 API 호출을 하지 말아야 합니다. (Date 및 Math 의 함수 등)
+
+
+
+<br/>
+
+React redux의 구성요소
+
+* Action : 사용자와 상호작용
+* Dispatcher : 이벤트 발생시 호출될 Callback 등록
+* Store : 상태와 로직을 담고 있으며, 상태를 변경하려면, Action -> Dispatch 과정을 통해야 함.
+
+
+
+<br/>
+
+#### 11-1. React redux 프로젝트 생성
+
+```sh
+# cd /tmp
+# create-react-app react-redux-example
+# cd react-redux-example
+# npm install --save redux react-redux
+# rm -f logo.svg index.css App.css App.test.js setupTest.js 
+```
+
+<br />
+
+
+
+#### 11-2. /src/index.js
+
+```react
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider  } from 'react-redux';
+import App from './components/App';
+import counterApp from './reducers';
+import * as serviceWorker from './serviceWorker';
+
+// store 를 만들고 counterApp reducer와 연동함.
+const store = createStore(counterApp);
+
+ReactDOM.render(
+    <Provider store = {store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+```
+
+<br />
+
+#### 11-3. /src/actions/index.js
+
+action은 어떤 변화가 일어나야 할지 알려주는 객체
+
+```react
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
+
+export function increment() {
+    return {
+        type: INCREMENT
+    };
+}
+
+export function decrement() {
+    return {
+        type: DECREMENT
+    };
+}
+```
+
+<br />
+
+#### 11-4. /src/components/App.js
+
+```react
+import React from 'react';
+import { connect } from 'react-redux';
+import { increment, decrement } from '../actions';
+
+class App extends React.Component {
+    render(){
+        return (
+            <div style={ {textAlign: 'center'} }>
+                <h1>VALUE: { this.props.value }</h1>
+                <button type="button" onClick={ this.props.onIncrement }>+</button>
+                <button type="button" onClick={ this.props.onDecrement }>-</button>
+            </div>
+        );
+    }
+}
+
+// state를 props에 연결함.
+// 접근시에 this.props.value 와 같이 사용함.
+let mapStateToProps = (state) => {
+    return {
+        value: state.counter.value
+    };
+}
+
+// dispatch 함수를 props에 연결함.
+// 접근시에 this.props.onIncrement 와 같이 사용함.
+let mapDispatchToProps = (dispatch) => {
+    return {
+        onIncrement: () => dispatch(increment()),
+        onDecrement: () => dispatch(decrement())
+    }
+}
+
+App = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default App;
+```
+
+<br />
+
+#### 11-5. /src/reducers/index.js
+
+```react
+import { INCREMENT, DECREMENT } from '../actions';
+import { combineReducers } from 'redux';
+
+const counterInitialState = {
+    value: 0
+};
+
+const counter = (state = counterInitialState, action) => {
+    switch(action.type) {
+        case INCREMENT:
+            return Object.assign({}, state, {
+                value: state.value + 1
+            });
+        case DECREMENT:
+            return Object.assign({}, state, {
+                value: state.value - 1
+            });
+        default:
+            return state;
+    }
+};
+
+// combineReducers는 reducer가 여러개 있다면, 하나로 합쳐주는 메소드
+const counterApp = combineReducers({
+    counter
+});
+
+export default counterApp;
+```
+
+
+
+<br />
+
+#### 11-7. React redux 실행 결과 확인
+
+```sh
+# cd /tmp/react-redux-example/
+# npm start
+```
+
+![react_dev_env_setting](/assets/images/react/react_redux.png)
+
+<br />
+
+
+
+
+
