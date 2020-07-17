@@ -6,21 +6,18 @@ categories: react
 header:
   teaser: "/assets/images/react.png"
 ---
-# 1. React overview
+## 1. React overview
 
 * Virtual DOM 사용으로 인해 속도가 빠릅니다.
-
 * React는 모든 것이 **컴포넌트**입니다. 
-
 * 데이터를 전달할 때 **부모에서 자식에게로만 데이터가 전달이 가능**합니다.
-
 * React 개발에서는 ES6문법을 사용하고있습니다.
 
 
-
 <br/>
-
-# 2. React 사용시 알고 있어야 할 ECMAScript 6 요약
+<br/>
+<br/>
+## 2. React 사용시 알고 있어야 할 ECMAScript 6 요약
 
 #### 2-1. var
 
@@ -115,9 +112,7 @@ console.log(b)//[1,2,3,4]
 
 
 
-위 예시처럼 배열의 모든 데이터가 교체되는 일을 리소스를 방지하기 위해 나온 문법이
-
-**펼침 연산자**로, 데이터 불변성과 관련있습니다.
+위 예시처럼 배열의 모든 데이터가 교체되는 일을 리소스를 방지하기 위해 나온 문법이 **펼침 연산자**로, 데이터 불변성과 관련있습니다.
 
 
 
@@ -180,16 +175,11 @@ class React extends Display {
 ```
 
 <br/>
+<br/>
+<br/>
+## 3. React JSX
 
-# 3. React JSX
-
-리액트에서는 JSX문법을 사용하는데, 이는 페이스북에서 만든 것으로 HTML과 비슷하게 생기고 
-
-비슷하게 사용하지만 전혀 다른 문법입니다.
-
-
-
-JSX에서는 꼭 지켜야할 규칙들이 몇가지 있습니다.
+리액트에서는 JSX문법을 사용하는데, 이는 페이스북에서 만든 것으로 HTML과 비슷하게 생기고 비슷하게 사용하지만 전혀 다른 문법입니다. 그리고 JSX에서는 꼭 지켜야할 규칙들이 몇가지 있습니다.
 
 
 
@@ -290,16 +280,9 @@ export default App;
 
 #### 3-4. CSS 작성 : 인라인 스타일
 
-리액트는 자바스크립트로 작성하기 때문에 아래처럼 style속성값에 일반 문자열이 아닌
-
-자바스크립트 객체가 할당되어야 합니다.
-
-
-
-그리고 font-size와 같이 중간에 대시 기호(-)가 들어간 속성명은 fontSize와 같이 카멜케이스로 바꿔줘야합니다. 
-
+리액트는 자바스크립트로 작성하기 때문에 아래처럼 style속성값에 일반 문자열이 아닌 자바스크립트 객체가 할당되어야 합니다.
+그리고 font-size와 같이 중간에 대시 기호(-)가 들어간 속성명은 fontSize와 같이 카멜케이스로 바꿔줘야 합니다. 
 (유지보수나 성능의 이슈가 있어 권장되지 않는 방법입니다.)
-
 
 
 ```javascript
@@ -350,14 +333,13 @@ return (
 ```
 
 React DOM은 HTML 어트리뷰트(attribute) 이름 대신 캐멀케이(camelCase)를 네이밍 컨벤션으로 사용합니다. 
-
 예를 들어, JSX에서 tabindex는 tabIndex로 작성합니다.
-
 **class 어트리뷰트는 JavaScript의 예약어이므로 className으로 작성**합니다.
 
 <br/>
-
-# 4. React 개발환경구축 
+<br/>
+<br/>
+## 4. React 개발환경구축 
 
 #### 4-1. yum ssl verify 비활성화
 
@@ -421,12 +403,11 @@ v10.21.0
 ```
 
 <br/>
+<br/>
+<br/>
+## 5. React render
 
-# 5. React render
-
-ReactDOM.render(element, container) 함수를 사용하여, 
-
-container에 element를 출력할 수 있습니다.
+ReactDOM.render(element, container) 함수를 사용하여, container에 element를 출력할 수 있습니다.
 
 
 
@@ -626,10 +607,10 @@ To create a production build, use npm run build.
 ![react_dev_env_setting](/assets/images/react_dev_env_setting.png)
 
 <br/>
+<br/>
+<br/>
 
-
-
-# 6. React deploy
+## 6. React deploy
 
 #### 6-1. React render build
 
@@ -663,21 +644,17 @@ To create a production build, use npm run build.
 ```
 
 <br/>
+<br/>
+<br/>
 
 
-
-# 7. React props 
+## 7. React props 
 
 * props는 단방향 데이터 바인딩
-
 * props는 readonly (즉, 불변객체)
-
 * props는 타입지정 가능
-
 * props는 required 지정 가능
-
 * props는 기본값 설정 가능
-
   
 
 <br/>
@@ -757,10 +734,9 @@ export default App;
 ![react_dev_env_setting](/assets/images/react/react_props.png)
 
 <br/>
-
-
-
-# 8. React state
+<br/>
+<br/>
+## 8. React state
 
 #### 8-1. React state 프로젝트 생성
 
@@ -819,14 +795,11 @@ export default App;
 ![react_dev_env_setting](/assets/images/react/react_state.png)
 
 <br/>
+<br/>
+<br/>
 
 
-
-
-
-
-
-# 9. React button
+## 9. React button
 
 #### 9-1. React button 프로젝트 생성
 
@@ -888,13 +861,11 @@ export default App;
 
 
 <br/>
+<br/>
+<br/>
+## 10. React life cycle
 
-# 10. React life cycle
-
-컴퍼넌트가 load되거나, unload 되는 시점에 특정 행위가 필요한 경우,
-
-React life cycle를 활용할 수 있습니다.
-
+컴퍼넌트가 load되거나, unload 되는 시점에 특정 행위가 필요한 경우, React life cycle를 활용할 수 있습니다.
 * componentDidMount : 컴퍼넌트가 load 되었을 때 호출됨.
 * componentWillUnmount : 컴퍼넌트가 unload 되었을 때 호출됨.
 
@@ -959,13 +930,13 @@ export default App;
 ![react_dev_env_setting](/assets/images/react/react_life.png)
 
 <br/>
+<br/>
+<br/>
 
 
-
-# 11. React redux 
+## 11. React redux 
 
 redux 에서는 action을 dispatch하여 상태값을 변경할 수 있습니다.
-
 이 때, 다음과 같은 함수들이 사용이 됩니다.
 
 * **mapStateProps** : state를 props로 연결해 주는 함수
