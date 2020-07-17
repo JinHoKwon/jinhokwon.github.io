@@ -106,9 +106,8 @@ indexing을 최적화 하기 위해서는 색인이 필요한 문서를 Bulk 단
 #### 2-2. 적절한 샤드 수 및 크기
 
 정해진 공식같은 것은 없으나, 가급적 다음에 언급되고 있는 최대치 이하로 관리하는 것이 좋습니다.
-```
-A good rule of thumb is to try to keep shard size between 10–50 GiB. Large shards can make it difficult for Elasticsearch to recover from failure, but because each shard uses some amount of CPU and memory, having too many small shards can cause performance issues and out of memory errors.
-```
+
+> A good rule of thumb is to try to keep shard size between 10–50 GiB. Large shards can make it difficult for Elasticsearch to recover from failure, but because each shard uses some amount of CPU and memory, having too many small shards can cause performance issues and out of memory errors.
 
 * Index당 최대 Shard 수 : 200개 이하
 * Shard 하나 당 최대 크기 : 10~50GB
