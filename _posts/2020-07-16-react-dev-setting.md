@@ -365,9 +365,11 @@ installonly_limit=5
 
 #### 4-2. nodejs 설치
 
-```sh
-# yum -y install nodejs
-```
+[Centos 7 환경에서 nodejs v10 설치](/devops/devops-node/) 문서를 참고하여 설치합니다.
+
+이 때, curl 관련 SSL 인증서 오류가 발생하는 경우
+
+[curl 그리고 curl 명령어 요약](/devops/devops-curl/) 문서를 참고하여 적절히 대응합니다.
 
 <br/>
 
