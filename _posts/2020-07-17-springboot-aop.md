@@ -4,7 +4,7 @@ tags: [springboot, dev]
 comments: true
 categories: springboot
 header:
-  teaser: "/assets/images/springboot_logo.png"
+  teaser: "/assets/images/springboot/springboot_logo.png"
 ---
 ## 1. OOP와 AOP의 차이점
 
