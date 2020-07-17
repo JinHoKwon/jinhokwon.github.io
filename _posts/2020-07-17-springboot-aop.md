@@ -40,9 +40,9 @@ AOP를 적용하기 위해서는 대상(Target)이 필요하며,<br/>
 #### 2-2. Advice 
   * @Before : 대상 호출전
   * @After : 대상 호출후
-  * @AfterReturning 
-  * @AfterThrowing
-  * @Around : 반드시 proceed() 메소드가 호출되어야 함.
+  * @AfterReturning : 리턴값 참조는 가능하지만, 변경은 불가능함.
+  * @AfterThrowing : 처리하는 과정에서 예외가 발생한 경우
+  * @Around : 반드시 proceed() 메소드가 호출되어야 하며, 리턴값의 변경이 가능함.
 
 <br/>
 #### 2-3.  Pointcut 표기예제
