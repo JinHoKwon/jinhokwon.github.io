@@ -10,60 +10,39 @@ header:
 ## 1. Redis cluster 개요
 
 * Redis cluster는 v3.0 이상 버전에서만 지원됩니다.
-
 * Redis cluster는 1개의 primary node와 n개의 replica node로 구성이 됩니다. 
-
 * Primary node와 Replica node 사이의 데이터 동기화는 비동기 방식으로 진행이 됩니다.
-
 * Primary node의 I/O 요청이 많을 경우, 동기화 과정이 지연처리 될 수 있습니다.
-
   ※ 즉, Primary node와 Replica node의 데이터가 서로 다를수 있음. 
-
 * 최대 1000 대의 노드까지 확장 할 수 있습니다.
-
 * 클러스터가 활성화 된 이후에도 노드의 추가 및 삭제가 가능합니다.
-
 * 특정 키값을 저장할 위치를 선정하기 위해서 CRC16 해쉬 함수를 사용합니다. 
-
-  ```sh
-  HashSlot = CRC16(Key) % 16384
-  ```
-
+    ```sh
+    HashSlot = CRC16(Key) % 16384
+    ```
 * Redis cluster 환경에서 Replica node가 있는 경우, Fail over 가 자동으로 진행됩니다. (약 1분 이내 fail over가 진행됨.)
-
 * Redis cluster 환경에서 Replica node가 많을 수록, 복제 비용또한 비례해서 증가합니다. 
-
   ※ 보통은 Primary node 1대에 Replica node 2대로 셋팅함.
-
 * Replica node는 쓰기가 불가능 하지만, 클러스터 모드로 접속시 쓰기가 가능합니다.
-
   포트 7005번이 Replica node라고 가정함.
+    ```sh
+    Replica node 에서 쓰기가 불가능함.
+    $ redis-cli -h 192.168.56.21 -p 7005 set korea seoul   
+    (error) MOVED 1583 192.168.56.21:7001
 
-  ```sh
-  Replica node 에서 쓰기가 불가능함.
-  $ redis-cli -h 192.168.56.21 -p 7005 set korea seoul   
-  (error) MOVED 1583 192.168.56.21:7001
-  
-  반면에
-  Replica node에 접속하지만, cluster 옵션(-c)을 추가한 경우, 쓰기가 가능함.
-  $ redis-cli -c -h 192.168.56.21 -p 7005 set korea seoul   
-  OK
-  ```
+    반면에
+    Replica node에 접속하지만, cluster 옵션(-c)을 추가한 경우, 쓰기가 가능함.
+    $ redis-cli -c -h 192.168.56.21 -p 7005 set korea seoul   
+    OK
+    ```
 
 * Redis cluster 환경에서는 더 이상 센티넬이 필요하지 않습니다. 
-
 * Redis cluster 환경에서 일부 Primary node가 다운이 된 경우, 부분적으로 서비스를 제공하지만,
-
   과반수 이상의 Primary node가 다운이 된 경우, 클러스터는 정상 동작하지 않습니다.
 
-  
-  
-  
-
-
-
+<br/>
+<br/>
 ## 2. Redis cluster 구축
-
 #### 2-1. Redis 컴파일 및 설치
 
 ```sh
@@ -94,7 +73,7 @@ header:
 ```
 
 
-
+<br/>
 #### 2-2. Redis1 ~ Redis6 설정
 
 /usr/local/redis[1-6]/conf/redis.conf 파일 수정
@@ -129,7 +108,7 @@ daemonize no
 ```
 
 
-
+<br/>
 #### 2-3. Redis1 ~ Redis6 서버 실행
 
 ```sh
@@ -142,7 +121,7 @@ daemonize no
 ```
 
 
-
+<br/>
 #### 2-4. Redis1 ~ Redis6 클러스터 초기화
 
 ```sh
@@ -155,7 +134,7 @@ daemonize no
 ```
 
 
-
+<br/>
 #### 2-5. Redis cluster 생성
 
 먼저 설정된 192.168.56.21:[7001-7003] 번 서버가 Master로, 
@@ -222,10 +201,9 @@ S: 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005
 
 
 
-
-
+<br/>
+<br/>
 ## 3. Redis cluster 상태 조회
-
 #### 3-1. Redis cluster 정보 조회
 
 ```sh
@@ -249,7 +227,7 @@ cluster_stats_messages_received:286
 ```
 
 
-
+<br/>
 #### 3-2. Redis cluster 노드 조회
 
 ```sh
@@ -262,8 +240,8 @@ e7ff69cf6f4bf0d24b633d304e26bca068cd6230 192.168.56.21:7003@17003 master - 0 159
 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005@17005 slave daef2da51cc05e6e34261dab970875dca7e4ddd3 0 1594792791921 5 connected
 ```
 
-
-
+<br/>
+<br/>
 ## 4. Redis cluster 체크
 
 ```sh
@@ -297,18 +275,17 @@ S: 49699999d99d7d0d74c4b542ed520446c5f37c7d 192.168.56.21:7005
 >>> Check slots coverage...
 [OK] All 16384 slots covered.
 ```
-
-
+<br/>
+<br/>
 
 ## 5. Redis cluster 값 입력 및 조회
-
 #### 5-1. Redis cluster에 값 쓰기
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7001 set foo bar
 OK
 ```
-
+<br/>
 #### 5-2. Redis cluster에 값 읽기
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7002 get foo
@@ -326,16 +303,16 @@ OK
 # redis-cli -c -h 192.168.56.21 -p 7006 get foo
 "bar"
 ```
-
+<br/>
 #### 5-3. Redis cluster에 값 위치 조회 
 
 ```sh
 # redis-cli -c -h 192.168.56.21 -p 7002 cluster keyslot foo 
 (integer) 12182
 ```
-
+<br/>
+<br/>
 ## 6. Redis cluster failover
-
 #### 6-1. 7003 master 노드 제거
 
 ```sh
@@ -343,7 +320,7 @@ OK
 ```
 
 
-
+<br/>
 #### 6-2. Redis cluster 상태 조회
 
 ```sh
@@ -367,7 +344,7 @@ cluster_stats_messages_received:1336
 ```
 
 
-
+<br/>
 #### 6-3. Redis cluster 노드 조회
 
 최초 slave 였던 7004번 노드가 master 로 승격되었고, 기존 7003번 노드는 fail로 표시됨.
@@ -385,7 +362,7 @@ e7ff69cf6f4bf0d24b633d304e26bca068cd6230 192.168.56.21:7003@17003 master,fail - 
 
 
 
-
+<br/>
 #### 6-4. 7003 master 노드 재시작
 
 ```sh
@@ -394,8 +371,8 @@ e7ff69cf6f4bf0d24b633d304e26bca068cd6230 192.168.56.21:7003@17003 master,fail - 
 
 
 
-
-
+<br/>
+<br/>
 ## 7. Redis cluster 노드 조회
 
 7003 노드는 slave 로 다시 클러스터에 연결되었음.
