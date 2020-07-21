@@ -101,6 +101,10 @@ public class Box {
 
 #### 1-3. 시간, 배열 사용 예제
 
+시간을 처리하기 위해서는, JavaTimeModule를 모듈로 등록한 이후에, @JsonFormat으로 pattern을 설정해야 하고,
+
+배열을 처리하기 위해서는 TypeReference 클래스를 활용하여 Deserialize 클래스의 정보를 설정해 주어야 합니다.
+
 ```java
 package com.example.app;
 
