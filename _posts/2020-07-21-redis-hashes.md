@@ -13,7 +13,7 @@ header:
 
 Redis cluster 환경에서는 Primary redis node 와 slave redis node 간의 
 
-동기화가 100% 이루어지기 이전까지는, 랭킹 정보가 서로 다를수 있습니다.
+동기화가 100% 이루어지기 이전까지는, 해쉬 정보가 서로 다를수 있습니다.
 
 <br/>
 
