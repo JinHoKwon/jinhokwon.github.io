@@ -34,7 +34,7 @@ localhost:6379> OK
 
 #### 2-2. zadd : 맴버 추가
 
-> zadd <키> <score> <member> [score member ...]
+> zadd <key> <score> <member> [score member ...]
 
 bbs 키에 ebs, mbc, kbs, sbs 맴버를 추가하고 각각 1점씩 부여합니다.
 
@@ -49,7 +49,7 @@ localhost:6379> zadd bbs 1 ebs 1 mbc 1 kbs 1 sbs
 
 #### 2-3. zrevrange : 순위조회
 
-> zrange <키> <시작> <끝> withscores
+> zrange <key> <시작> <끝> withscores
 
 bbs 키 값에 매핑된 모든 맴버의 점수를 포함하여 조회합니다.
 ```sh
@@ -91,7 +91,7 @@ localhost:6379> zrevrange bbs 0 -1 withscores
 
 #### 2-5. zrem : 맴버 삭제
 
-> zrem <키> [member ...]
+> zrem <key> [member ...]
 
 bbs 키값에 포함된 ebs 맴버를 삭제합니다.
 
@@ -112,7 +112,7 @@ localhost:6379> zrevrange bbs 0 -1 withscores
 
 #### 2-6. zcount : 점수 기준 맴버 수 조회
 
-> zcount <키> <최소점수> <최대점수> 
+> zcount <key> <최소점수> <최대점수> 
 
 이 때, 음의 무한 정수는 `-inf` 로 표시하고, 양의 무한 정수는 `+inf`로 표시합니다.
 
@@ -128,7 +128,7 @@ localhost:6379> zcount bbs 2 +inf
 
 #### 2-7. zrevrangebyscore : 점수를 지정하여 랭킹을 조회
 
-> zrevrangebyscore  <키> <최소점수> <최대점수>
+> zrevrangebyscore  <key> <최소점수> <최대점수>
 
 최대 3점을 포함한 3점 이하까지 조회
 
@@ -151,7 +151,7 @@ localhost:6379> zrevrangebyscore bbs (3 -inf
 
 #### 2-8. zrevrank : 맴버 랭킹 조회
 
-> zrevrank <키> <맴버>
+> zrevrank <key> <맴버>
 
 mbc, kbs의 랭킹을 조회합니다.
 
