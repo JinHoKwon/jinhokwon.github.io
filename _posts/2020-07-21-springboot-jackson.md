@@ -89,10 +89,11 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 public class Box {
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     LocalDateTime createDatetime;
 }
 ```
@@ -139,6 +140,13 @@ public class SpringBootConsoleApplicationTests {
         String json = mapper.writeValueAsString(box);
         Box deserializeBox = mapper.readValue(json, Box.class);
         Assertions.assertTrue(deserializeBox.getCreateDatetime().isEqual(now));
+    }
+
+    @Test
+    public void deserializeLocalDateTimeTest() throws Exception {
+        String json = "{\"createDatetime\" : \"2020-02-20T11:22:33.007Z\" }";
+        Box deserializeBox = mapper.readValue(json, Box.class);
+        log.info("{}", deserializeBox);
     }
 
     @Test
