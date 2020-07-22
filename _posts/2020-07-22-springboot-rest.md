@@ -267,7 +267,7 @@ public class SpringBootWebApplication {
 ```sh
 # curl -v -X GET localhost:8088/label/
 {
-	"name":"default"
+    "name":"default"
 }
 ```
 
@@ -285,7 +285,7 @@ public class SpringBootWebApplication {
 
 # curl -v -X GET localhost:8088/label/
 {
-	"name":"mylabel"
+    "name":"mylabel"
 }
 ```
 
@@ -305,7 +305,7 @@ public class SpringBootWebApplication {
 
 # curl -v -X GET localhost:8088/label/
 {
-	"name":"mylabel2"
+    name":"mylabel2"
 }
 ```
 
