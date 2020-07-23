@@ -2,7 +2,7 @@
 title: MySQL SELECT FOR UPDATE 의 이해
 tags: [devops, mysql]
 comments: true
-categories: devops
+categories: mysql
 header:
   teaser: "/assets/images/mysql/mysql_logo.png"
 ---

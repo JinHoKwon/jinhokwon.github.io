@@ -2,7 +2,7 @@
 title: CentOS 7 환경에 MySQL 8.x 버전 설치
 tags: [devops, mysql]
 comments: true
-categories: devops
+categories: mysql
 header:
   teaser: "/assets/images/mysql/mysql_logo.png"
 ---
