@@ -160,7 +160,18 @@ pre {
   overflow-x: auto; /* add scrollbars to wide code blocks*/
 }
 
-p > code,
+p > code {
+  font-size:1.0em;
+  background-color: #DAF7A6;
+  border-radius: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-family: auto;
+  font-weight: bolder;
+}
+
 a > code,
 li > code,
 figcaption > code,
