@@ -150,19 +150,11 @@ LABEL author="JinhoKwon"
 
 ##### 전체 라벨을 확인하는 경우
 
-```sh
-# docker image inspect --format="{{index .Config.Labels }}" jinhokwon/jdk11:v1.0
-map[author:JinhoKwon]
-```
+![dockerfile_label_config_labels](/assets/images/docker/dockerfile_label_config_labels.png)
 
 ##### 특정 라벨을 확인하는 경우
 
-```sh
-# docker image inspect --format='{{index .Config.Labels "author" }}' jinhokwon/jdk11:v1.0
-JinhoKwon
-```
-
-
+![dockerfile_label_config_labels_author](/assets/images/docker/dockerfile_label_config_labels_author.png)
 
 
 
