@@ -281,7 +281,7 @@ root 계정을 이용해서 kubectl을 실행할 경우 다음 환경 변수를 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
-
+<br/>
 
 #### 4-2. proxy 서버 설정
 
@@ -292,7 +292,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 # export https_proxy=192.168.56.1:3128
 ```
 
-
+<br/>
 
 #### 4-3. docker images 조회
 
@@ -301,7 +301,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ```
 
-
+<br/>
 
 
 
@@ -321,7 +321,7 @@ pod network add-on의 종류에 따라서 --pod-network-cidr 설정 값을 다�
 
 172.16.0.0/16으로 변경하여 사용합니다.
 
-
+<br/>
 
 아직 실행전임.
 
@@ -335,7 +335,7 @@ pod network add-on의 종류에 따라서 --pod-network-cidr 설정 값을 다�
      Docs: https://kubernetes.io/docs/
 ```
 
-
+<br/>
 
 
 
@@ -416,7 +416,7 @@ kubeadm join 192.168.56.101:6443 --token 52fbkz.qe319zph7ae2vc2o \
     --discovery-token-ca-cert-hash sha256:9854795f543183babab7284413187e7a380d93eeca6fe5c07cebcca87233502c
 ```
 
-
+<br/>
 
 
 
@@ -445,7 +445,7 @@ kubeadm join 192.168.56.101:6443 --token 52fbkz.qe319zph7ae2vc2o \
 Hint: Some lines were ellipsized, use -l to show in full.
 ```
 
-
+<br/>
 
 
 
@@ -459,7 +459,7 @@ master 노드에서만 진행
 # sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-
+<br/>
 
 
 
@@ -467,33 +467,33 @@ master 노드에서만 진행
 
 #### 4-6. pod network add on 설치
 
-pod network add-on 설치는 Master 노드에서만 합니다.
+pod network add-on 설치는 Master 노드에서만 합니다.<br/>
 
 Kubernetes 환경에서 Pod들이 통신하려면 pod network add-on이 있어야 합니다. 
 
 pod network add-on이 설치되기 전에는 CoreDNS가 시작되지 않습니다. 
 
-
+<br/>
 
 'kubeadm init' 이후에 'kubectl get pods -n kube-system' 명령어로 확인해보면 
 
 CoreDNS가 아직 시작되지 않은 상태를 확인할 수 있습니다. 
 
-
+<br/>
 
 pod network와 호스트 네트워크가 겹칠 경우 문제가 발생할 수 있습니다. 
 
-
+<br/>
 
 그래서 앞서 'kubeadm init' 단계에서 가상머신 네트워크 대역과 겹치는 
 
 192.168.0.0/16 네트워크를 사용하지 않고 172.16.0.0/16으로 변경하여 사용했습니다.
 
-
+<br/>
 
 kubeadm은 CNI(Container Network Interface) 기반 네트워크만 지원하며 
 
-kubenet은 지원하지 않습니다. 
+kubenet은 지원하지 않습니다. <br/>
 
 CNI(Container Network Interface)는 CNCF(Cloud Native Computing Foundation)의 프로젝트 중 하나로 
 
@@ -505,7 +505,9 @@ CNI(Container Network Interface)를 기반으로 만들어진 pod network add-on
 
 각 pod network add-on 마다 설치법이 소개되어 있습니다. 여기서는 Calico를 사용하려고 합니다.
 
+<br/>
 
+<br/>
 
 Calico 설치 방법은 위에 소개했던 페이지에서도 확인할 수 있지만 'https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/calico' 페이지에도 소개되어 있습니다. 
 
@@ -515,7 +517,7 @@ BGP(Border Gateway Protocol)를 사용하여 노드 간 통신을 용이하게 �
 
 Flannel 기반 네트워크 시스템보다 우수한 성능 및 네트워크 격리를 제공 할 수 있습니다.
 
-
+<br/>
 
 'kubeadm init' 단계에서 --pod-network-cidr 설정 값을 172.16.0.0/16으로 변경하여 
 
@@ -552,7 +554,7 @@ serviceaccount/calico-kube-controllers unchanged
 
 
 
-
+<br/>
 
 #### 4-7. kube-apiserver 실행 확인
 
@@ -562,7 +564,7 @@ c551686af0db        b305571ca60a           "kube-apiserver --..."   22 minutes a
 c8741f978bc2        k8s.gcr.io/pause:3.1   "/pause"                 22 minutes ago      Up 22 minutes                           k8s_POD_kube-apiserver-localhost.localdomain_kube-system_eaef44bf2ab1a21afbd7d32e67ae5a1f_0
 ```
 
-
+<br/>
 
 
 
@@ -576,7 +578,7 @@ Server Version: version.Info{Major:"1", Minor:"16", GitVersion:"v1.16.0", GitCom
 
 
 
-
+<br/>
 
 #### 4-9. kube-system pods 조회
 
@@ -596,9 +598,9 @@ kube-scheduler-localhost.localdomain            1/1     Running             0   
 
 
 
+<br/>
 
-
-
+<br/>
 
 
 
@@ -615,7 +617,7 @@ kubeadm join 192.168.56.101:6443 --token id1p6s.ye6l2dt0pqzn5ur2     --discovery
 
 
 
-
+<br/>
 
 #### 5-1. node1.net join
 
@@ -642,7 +644,7 @@ This node has joined the cluster:
 Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 ```
 
-
+<br/>
 
 #### 5-2. node2.net join
 
@@ -671,7 +673,7 @@ This node has joined the cluster:
 Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 ```
 
-
+<br/>
 
 #### 5-3. kubernetes cluster 조회
 
@@ -685,25 +687,9 @@ KubeDNS is running at https://192.168.56.101:6443/api/v1/namespaces/kube-system/
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
+<br/>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##### 5-4. kubernetes 노드 상태 조회
+#### 5-4. kubernetes 노드 상태 조회
 
 약 2분 정도 경과후에 확인
 
@@ -722,9 +708,9 @@ node1.net     Ready    <none>   156m   v1.16.0
 node2.net     Ready    <none>   3m9s   v1.16.0
 ```
 
+<br/>
 
-
-
+<br/>
 
 ## 6. kubernetes 관련 docker 조회
 
@@ -746,7 +732,7 @@ docker.io/calico/pod2daemon-flexvol   v3.8.2              96047edc008f        5 
 k8s.gcr.io/pause                      3.1                 da86e6ba6ca1        21 months ago       742 kB
 ```
 
-
+<br/>
 
 #### 6-2. worker 노드
 
@@ -762,431 +748,6 @@ k8s.gcr.io/pause                      3.1                 da86e6ba6ca1        21
 
 
 
-## 7. kubernetes dashboard
-
-#### 7-1. dashboard 설치
-
-```sh
-# kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
-namespace/kubernetes-dashboard created
-serviceaccount/kubernetes-dashboard created
-service/kubernetes-dashboard created
-secret/kubernetes-dashboard-certs created
-secret/kubernetes-dashboard-csrf created
-secret/kubernetes-dashboard-key-holder created
-configmap/kubernetes-dashboard-settings created
-role.rbac.authorization.k8s.io/kubernetes-dashboard created
-clusterrole.rbac.authorization.k8s.io/kubernetes-dashboard created
-rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
-clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard created
-deployment.apps/kubernetes-dashboard created
-service/dashboard-metrics-scraper created
-deployment.apps/kubernetes-metrics-scraper created
-```
-
-
-
-```sh
-# kubectl get pods --all-namespaces
-NAMESPACE              NAME                                          READY   STATUS    RESTARTS   AGE
-kube-system            calico-kube-controllers-564b6667d7-45ffl      1/1     Running   1          3h1m
-kube-system            calico-node-llzlt                             1/1     Running   1          3h1m
-kube-system            calico-node-tg7lg                             1/1     Running   0          25m
-kube-system            calico-node-vlnr7                             1/1     Running   1          178m
-kube-system            coredns-5644d7b6d9-29xw2                      1/1     Running   1          3h12m
-kube-system            coredns-5644d7b6d9-9nrbg                      1/1     Running   1          3h12m
-kube-system            etcd-master1.net                              1/1     Running   1          3h11m
-kube-system            kube-apiserver-master1.net                    1/1     Running   1          3h11m
-kube-system            kube-controller-manager-master1.net           1/1     Running   1          3h11m
-kube-system            kube-proxy-2gncf                              1/1     Running   1          178m
-kube-system            kube-proxy-5jnvr                              1/1     Running   0          25m
-kube-system            kube-proxy-bg45j                              1/1     Running   1          3h12m
-kube-system            kube-scheduler-master1.net                    1/1     Running   1          3h11m
-kubernetes-dashboard   kubernetes-dashboard-bf855c94d-x2dkk          1/1     Running   0          48s
-kubernetes-dashboard   kubernetes-metrics-scraper-6b97c6d857-4c5r4   1/1     Running   0          48s
-```
-
-
-
-```sh
-# kubectl proxy --port=8001 --address=192.168.56.101 --accept-hosts='^*$'
-```
-
-
-
-
-
-#### 7-2. dashboard 계정 생성
-
-```sh
-# kubectl create serviceaccount cluster-admin-dashboard-sa
-serviceaccount/cluster-admin-dashboard-sa created
-
-# kubectl create clusterrolebinding cluster-admin-dashboard-sa --clusterrole=cluster-admin --serviceaccount=default:cluster-admin-dashboard-sa
-clusterrolebinding.rbac.authorization.k8s.io/cluster-admin-dashboard-sa created
-```
-
-
-
-#### 7-3. dashboard 계정 토큰 확인
-
-```sh
-# kubectl get secret $(kubectl get serviceaccount cluster-admin-dashboard-sa -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
-eyJhbGciOiJSUzI1NiIsImtpZCI6IjZNT1E1VkxuTlN3RFFoTHdsUDZYWTVpc1FzSEZlN2MwZUdqZFpfQVdiNEkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImNsdXN0ZXItYWRtaW4tZGFzaGJvYXJkLXNhLXRva2VuLXZjc2h6Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImNsdXN0ZXItYWRtaW4tZGFzaGJvYXJkLXNhIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNGMyODc2MzMtNjFkMy00N2RjLTk4ZTctMGM0MGQ0OGY5ZWUxIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmRlZmF1bHQ6Y2x1c3Rlci1hZG1pbi1kYXNoYm9hcmQtc2EifQ.J6xmvTqNI-a6KWzjS-JetPw25eFAaTIvO0aouVppUFrk0CqyaVNRMy5untGzLwi8ujrYS__64yAIlTQGw9wiXn7_lW4v8uyUrSUarmxa_UH5h-WDu6ans3QexLIi-Bop3zrmwUYRRGjhBC-FojduyVAgcKQR1Iwcd5cdFyDGORK7TejBcdZvICDqVlp8i5F4mweGqXx0VslptBXdGP-AjaLPnVxgcWstdXOIXpXys57w92SINZH4CEErkJzqDvOCr1v8sE9yynBkOBZLo5vT1Zjtg0yJ41vbTJvOjkUHrjPGbyHEFV1T87OEo-hpHk0Djga5zgDvO8o2-HEH6LJ_qQ
-```
-
-
-
-
-
-## 9. kubernetes hello world 실습
-
-##### docker 로그인
-
-```sh
-# docker login
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username: jinhokwon
-Password:
-Login Succeeded
-```
-
-
-
-
-
-##### 샘플 이미지 pull
-
-master1.net 장비에서 실행
-
-```sh
-# docker pull jinhokwon/spring-boot-rest-docker:latest
-Using default tag: latest
-Trying to pull repository docker.io/asbubam/hello-node ...
-latest: Pulling from docker.io/asbubam/hello-node
-10a267c67f42: Pull complete
-fb5937da9414: Pull complete
-9021b2326a1e: Pull complete
-dbed9b09434e: Pull complete
-74bb2fc384c6: Pull complete
-9b0a326fab3b: Pull complete
-8089dfd0519a: Pull complete
-f2be1898eb92: Pull complete
-88c75a4701d0: Pull complete
-f0e706fb13e8: Pull complete
-a36c184b15a1: Pull complete
-98fd9c1d5bd4: Pull complete
-Digest: sha256:3d7137c208e1f3cccbd64a206d178751d0a1df07f6e5faf6fa9419454fa349a8
-Status: Downloaded newer image for docker.io/jinhokwon/spring-boot-rest-docker:latest
-```
-
-
-
-```sh
-# docker run -d --name spring-boot-rest-docker \
--e "SERVER_PORT=8080" \
--p 8080:8080 \
-jinhokwon/spring-boot-rest-docker:latest
-
-68f6fe53e7abbb35ed59c316ebb17f11712cb1de30ecfb067dcd0ada10426407
-```
-
-
-
-```sh
-# docker ps -a | grep spring
-283ad11985f3        jinhokwon/spring-boot-rest-docker:latest   "java -Djava.securit…"   10 seconds ago      Up 9 seconds                0.0.0.0:8080->8080/tcp   spring-boot-rest-docker
-```
-
-
-
-
-
-```sh
-# docker logs spring-boot-rest-docker
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.1.3.RELEASE)
-
-2019-11-03T23:32:11,865 INFO  [main] o.s.b.StartupInfoLogger: Starting SpringBootWebApplication v0.0.1-SNAPSHOT on 283ad11985f3 with PID 1 (/app.jar started by root in /)
-2019-11-03T23:32:11,888 DEBUG [main] o.s.b.StartupInfoLogger: Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
-2019-11-03T23:32:11,901 INFO  [main] o.s.b.SpringApplication: No active profile set, falling back to default profiles: default
-2019-11-03T23:32:13,489 INFO  [main] o.s.b.w.e.t.TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
-2019-11-03T23:32:13,510 INFO  [main] o.a.j.l.DirectJDKLog: Initializing ProtocolHandler ["http-nio-8080"]
-2019-11-03T23:32:13,524 INFO  [main] o.a.j.l.DirectJDKLog: Starting service [Tomcat]
-2019-11-03T23:32:13,525 INFO  [main] o.a.j.l.DirectJDKLog: Starting Servlet engine: [Apache Tomcat/9.0.16]
-2019-11-03T23:32:13,538 INFO  [main] o.a.j.l.DirectJDKLog: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
-2019-11-03T23:32:13,665 INFO  [main] o.a.j.l.DirectJDKLog: Initializing Spring embedded WebApplicationContext
-2019-11-03T23:32:13,666 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 1687 ms
-2019-11-03T23:32:14,060 INFO  [main] o.s.s.c.ExecutorConfigurationSupport: Initializing ExecutorService 'applicationTaskExecutor'
-2019-11-03T23:32:14,334 INFO  [main] o.a.j.l.DirectJDKLog: Starting ProtocolHandler ["http-nio-8080"]
-2019-11-03T23:32:14,373 INFO  [main] o.s.b.w.e.t.TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
-2019-11-03T23:32:14,376 INFO  [main] o.s.b.StartupInfoLogger: Started SpringBootWebApplication in 3.482 seconds (JVM running for 5.27)
-```
-
-
-
-```sh
-# curl localhost:8080
-{
-  "result" : "first",
-  "hostname" : "283ad11985f3"
-}
-```
-
-
-
-```sh
-# docker stop spring-boot-rest-docker
-spring-boot-rest-docker
-```
-
-
-
-#### kube yaml 파일 작성
-
-마스터 노드에서 작성함.
-
-/tmp/spring-boot-rest-pod.yaml
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: spring-boot-rest-pod
-  labels:
-    service-name: spring-boot-rest-pod-service
-spec:
-  containers:
-  - name: spring-boot-rest-container
-    #image: asbubam/hello-node
-    image: jinhokwon/spring-boot-rest-docker
-    env:
-    - name: SERVER_PORT
-      value: "8080"
-    readinessProbe:
-      httpGet:
-        path: /
-        port: 8080
-    livenessProbe:
-      httpGet:
-        path: /
-        port: 8080
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: spring-boot-rest-service
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 8080
-    targetPort: 8080
-  selector:
-    service-name: spring-boot-rest-service
-```
-
-
-
-```sh
-# kubectl create -f /tmp/spring-boot-rest-pod.yaml
-pod/spring-boot-rest-pod created
-service/spring-boot-rest-service created
-```
-
-
-
-
-
-```sh
-# kubectl get pods
-NAME                   READY   STATUS              RESTARTS   AGE
-spring-boot-rest-pod   0/1     ContainerCreating   0          15s
-```
-
-
-
-잠시후..
-
-```sh
-# kubectl get pods
-NAME                   READY   STATUS    RESTARTS   AGE
-spring-boot-rest-pod   1/1     Running   0          34s
-```
-
-
-
-
-
-
-
-```sh
-# kubectl describe pod spring-boot-rest-pod
-Namespace:    default
-Priority:     0
-Node:         node2.net/192.168.56.152
-Start Time:   Mon, 04 Nov 2019 08:35:41 +0900
-Labels:       service-name=spring-boot-rest-pod-service
-Annotations:  cni.projectcalico.org/podIP: 172.16.0.197/32
-Status:       Running
-IP:           172.16.0.197
-IPs:
-  IP:  172.16.0.197
-Containers:
-  spring-boot-rest-container:
-    Container ID:   docker://ba6413af9b62033d981511f5387df08b5ceb953e029bdb96d0640b521427a5ab
-    Image:          jinhokwon/spring-boot-rest-docker
-    Image ID:       docker-pullable://jinhokwon/spring-boot-rest-docker@sha256:7e17193746e06790c4b7b4c36bd9e2990fc9958be39d6de62fac405b03388328
-    Port:           <none>
-    Host Port:      <none>
-    State:          Running
-      Started:      Mon, 04 Nov 2019 08:35:45 +0900
-    Ready:          True
-    Restart Count:  0
-    Liveness:       http-get http://:8080/ delay=0s timeout=1s period=10s #success=1 #failure=3
-    Readiness:      http-get http://:8080/ delay=0s timeout=1s period=10s #success=1 #failure=3
-    Environment:    <none>
-    Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from default-token-g9z5b (ro)
-Conditions:
-  Type              Status
-  Initialized       True
-  Ready             True
-  ContainersReady   True
-  PodScheduled      True
-Volumes:
-  default-token-g9z5b:
-    Type:        Secret (a volume populated by a Secret)
-    SecretName:  default-token-g9z5b
-    Optional:    false
-QoS Class:       BestEffort
-Node-Selectors:  <none>
-Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
-                 node.kubernetes.io/unreachable:NoExecute for 300s
-Events:
-  Type    Reason     Age        From                Message
-  ----    ------     ----       ----                -------
-  Normal  Scheduled  <unknown>  default-scheduler   Successfully assigned default/spring-boot-rest-pod to node2.net
-  Normal  Pulling    17s        kubelet, node2.net  Pulling image "jinhokwon/spring-boot-rest-docker"
-  Normal  Pulled     14s        kubelet, node2.net  Successfully pulled image "jinhokwon/spring-boot-rest-docker"
-  Normal  Created    14s        kubelet, node2.net  Created container spring-boot-rest-container
-  Normal  Started    14s        kubelet, node2.net  Started container spring-boot-rest-container
-```
-
-
-
-```sh
-# kubectl logs spring-boot-rest-pod
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.1.3.RELEASE)
-
-2019-11-03T23:35:48,281 INFO  [main] o.s.b.StartupInfoLogger: Starting SpringBootWebApplication v0.0.1-SNAPSHOT on spring-boot-rest-pod with PID 1 (/app.jar started by root in /)
-2019-11-03T23:35:48,288 DEBUG [main] o.s.b.StartupInfoLogger: Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
-2019-11-03T23:35:48,289 INFO  [main] o.s.b.SpringApplication: No active profile set, falling back to default profiles: default
-2019-11-03T23:35:49,683 INFO  [main] o.s.b.w.e.t.TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
-2019-11-03T23:35:49,702 INFO  [main] o.a.j.l.DirectJDKLog: Initializing ProtocolHandler ["http-nio-8080"]
-2019-11-03T23:35:49,720 INFO  [main] o.a.j.l.DirectJDKLog: Starting service [Tomcat]
-2019-11-03T23:35:49,721 INFO  [main] o.a.j.l.DirectJDKLog: Starting Servlet engine: [Apache Tomcat/9.0.16]
-2019-11-03T23:35:49,732 INFO  [main] o.a.j.l.DirectJDKLog: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
-2019-11-03T23:35:49,839 INFO  [main] o.a.j.l.DirectJDKLog: Initializing Spring embedded WebApplicationContext
-2019-11-03T23:35:49,839 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 1458 ms
-2019-11-03T23:35:50,095 INFO  [main] o.s.s.c.ExecutorConfigurationSupport: Initializing ExecutorService 'applicationTaskExecutor'
-2019-11-03T23:35:50,348 INFO  [main] o.a.j.l.DirectJDKLog: Starting ProtocolHandler ["http-nio-8080"]
-2019-11-03T23:35:50,370 INFO  [main] o.s.b.w.e.t.TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
-2019-11-03T23:35:50,376 INFO  [main] o.s.b.StartupInfoLogger: Started SpringBootWebApplication in 3.056 seconds (JVM running for 4.896)
-2019-11-03T23:35:52,954 INFO  [http-nio-8080-exec-1] o.a.j.l.DirectJDKLog: Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-11-03T23:35:52,954 INFO  [http-nio-8080-exec-1] o.s.w.s.FrameworkServlet: Initializing Servlet 'dispatcherServlet'
-2019-11-03T23:35:52,962 INFO  [http-nio-8080-exec-1] o.s.w.s.FrameworkServlet: Completed initialization in 8 ms
-```
-
-
-
-##### pod 테스트
-
-```sh
-# curl 172.16.229.131:8080
-{
-  "result" : "first",
-  "hostname" : "spring-boot-rest-pod"
-}
-```
-
-
-
-
-
-##### pod 제거
-
-```sh
-# kubectl delete -f /tmp/spring-boot-rest-pod.yaml
-pod "spring-boot-rest-pod" deleted
-service "spring-boot-rest-service" deleted
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 8. kubernetes node 삭제
-
-##### master 장비에서 실행
-
-```sh
-# kubectl delete node node1.net
-node "node1.net" deleted
-
-# kubectl delete node node2.net
-node "node2.net" deleted
-```
-
-
-
-##### 해당 노드에서 실행
-
-```sh
-# kubeadm reset
-# systemctl start kubelet
-```
-
-```sh
-# kubeadm reset
-# systemctl stop kubelet
-# systemctl stop docker
-# rm -rf /var/lib/cni/
-# rm -rf /var/lib/kubelet/*
-# rm -rf /etc/cni/
-# ifconfig cni0 down
-# ifconfig flannel.1 down
-# ifconfig docker0 down
-# ip link delete cni0
-# ip link delete flannel.1
-```
 
 
 
