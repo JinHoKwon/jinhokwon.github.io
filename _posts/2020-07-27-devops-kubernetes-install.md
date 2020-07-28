@@ -7,299 +7,50 @@ header:
   teaser: "/assets/images/kubernetes/kubernetes_logo.png"
 ---
 
-##  사전준비
-
-##### Virtualbox 가상머신 준비
-
-* Master1 : master1.net (IP : 192.168.56.101)
-
-  * ```sh
-    # hostnamectl set-hostname master1.net
-    ```
-
-  * /etc/hosts 
-
-    ```ini
-    192.168.56.101 localhost
-    192.168.56.101 master1.net
-    192.168.56.151 node1.net
-    192.168.56.152 node2.net
-    ```
-  
-   
-  
-* Node1 : node1.net (IP : 192.168.56.111)
-
-  * ```sh
-    # hostnamectl set-hostname node1.net
-    ```
-
-  * /etc/hosts
-
-    ```ini
-    192.168.56.101 master1.net
-    192.168.56.151 localhost node1.net
-    192.168.56.152 node2.net
-    ```
-
-    
-
-* Node2 : node2.net (IP : 192.168.56.112)
-
-  * ```sh
-    # hostnamectl set-hostname node2.net
-    ```
-
-  * /etc/hosts
-
-    ```ini
-    192.168.56.101 master1.net
-    192.168.56.151 node1.net
-    192.168.56.152 localhost node2.net
-    ```
-
-    
+##  1. Virtualbox
 
 
 
-##### Virtualbox CPU 설정
-
-프로세스 수를 최소 2개 이상으로 설정
+#### 1-1. Centos 7 이 설치된 총 3개의 VM 를 준비합니다.
 
 
 
-##### 유틸리티 설치
+<br/>
 
-```sh
-# yum -y install vim unzip
+#### 1-2. VM 하드웨어 설정
+
+* 네트워크 어뎁터1 : NAT 
+* 네트워크 어뎁터2 : Host only network
+* CPU : 2개 이상으로 설정함.
+
+
+
+VM 네트워크 설정과 관련된 자세한 설명은 [여기](/devops/devops-virtualbox-network/)에서 확인 할 수 있습니다.
+
+<br/>
+
+#### 1-3. Hostname 설정
+
+* master1.net : 192.168.56.150
+* node1.net : 192.168.56.151
+* node2.net : 192.168.56.152
+
+<br/>
+
+
+#### 1-4. /etc/hosts 설정
+
+```ini
+192.168.56.101 localhost
+192.168.56.150 master1.net
+192.168.56.151 node1.net
+192.168.56.152 node2.net
 ```
+<br/>
 
+#### 1-5. IP 설정
 
-
-##### Java 설치
-
-java 파일 다운로드 및 설치
-
-```sh
-# curl -O -L https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
-# tar xvfz zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
-# mv zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64 /usr/local/java
-```
-
-
-
-java 관련 환경변수 설정
-
-```sh
-export JAVA_HOME=/usr/local/java
-export PATH=$PATH:$JAVA_HOME/bin
-```
-
-
-
-java 버전 확인
-
-```sh
-# java -version
-openjdk version "1.8.0_222"
-OpenJDK Runtime Environment (Zulu 8.40.0.25-CA-linux64) (build 1.8.0_222-b10)
-OpenJDK 64-Bit Server VM (Zulu 8.40.0.25-CA-linux64) (build 25.222-b10, mixed mode)
-```
-
-
-
-
-
-
-
-##### Virtualbox 인증서 설정
-
-curl에 인증서 추가함
-
-```sh
-# cat /root/download/YOUR.cer >> /etc/pki/tls/certs/ca-bundle.crt
-```
-
-
-
-java에 인증서 추가함
-
-```sh
-# keytool -importcert -keystore $JAVA_HOME/jre/lib/security/cacerts \
--storepass changeit -file YOUR.cer -alias company
-```
-
-
-
-##### pssh 설치
-
-```sh
-# yum -y install epel-release
-# yum -y install pssh
-```
-
-
-
-##### maven 설치
-
-maven 파일 다운로드 및 설치
-
-```sh
-# curl -O -L https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
-# tar xvfz apache-maven-3.3.9-bin.tar.gz
-# mv apache-maven-3.3.9 /usr/local/maven
-```
-
-
-
-maven 관련 환경변수 설정
-
-```sh
-export MAVEN_HOME=/usr/local/maven
-export PATH=$PATH:$MAVEN_HOME/bin
-```
-
-
-
-maven 버전 확인
-
-```sh
-# mvn -version
-Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-11T01:41:47+09:00)
-Maven home: /usr/local/maven
-Java version: 1.8.0_222, vendor: Azul Systems, Inc.
-Java home: /usr/local/java/jre
-Default locale: ko_KR, platform encoding: UTF-8
-OS name: "linux", version: "3.10.0-957.el7.x86_64", arch: "amd64", family: "unix"
-```
-
-
-
-##### scala 설치
-
-scala 파일 다운로드 및 설치
-
-```sh
-# curl -O -L https://downloads.lightbend.com/scala/2.12.0/scala-2.12.0.tgz
-# tar xvfz scala-2.12.0.tgz
-# mv scala-2.12.0 /usr/local/scala
-```
-
-
-
-scala 관련 환경변수 설정
-
-```sh
-export SCALA_HOME=/usr/local/scala
-export PATH=$PATH:$SCALA_HOME/bin
-```
-
-
-
-scala 버전 확인
-
-```sh
-# scala -version
-Scala code runner version 2.12.0 -- Copyright 2002-2016, LAMP/EPFL and Lightbend, Inc.
-```
-
-
-
-
-
-##### sbt 설치
-
-sbt 파일 다운로드 및 설치
-
-```sh
-# curl -O -L -k https://piccolo.link/sbt-1.2.8.zip
-# unzip sbt-1.2.8.zip
-# mv sbt /usr/local/
-```
-
-
-
-sbt 관련 환경변수 설정
-
-```sh
-export SBT_HOME=/usr/local/sbt
-export PATH=$PATH:$SBT_HOME/bin
-```
-
-
-
-sbt 버전 확인 
-
-처음에 필요한 라이브러리를 다운로드 받는 과정이 필요하기 때문에, 시간이 좀 걸림.
-
-```sh
-# sbt sbtVersion
-```
-
-
-
-sbt 프록시 설정
-
-```sh
-# export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=192.168.56.1 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=192.168.56.1 -Dhttps.proxyPort=3128"
-```
-
-
-
-
-
-##### lein 설치
-
-lein 파일 다운로드 및 설치
-
-```sh
-# curl -L -O https://raw.github.com/technomancy/leiningen/stable/bin/lein
-# chmod ugo+x ./lein
-# mv ./lein /usr/local/bin/
-# lein
-```
-
-
-
-lein 버전확인
-
-```sh
-# lein version
-Downloading Leiningen to /root/.lein/self-installs/leiningen-2.9.1-standalone.jar now...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   618    0   618    0     0   1570      0 --:--:-- --:--:-- --:--:--  1572
-100 13.9M  100 13.9M    0     0   284k      0  0:00:50  0:00:50 --:--:--  329k
-Leiningen 2.9.1 on Java 1.8.0_222 OpenJDK 64-Bit Server VM
-
-# lein version
-Leiningen 2.9.1 on Java 1.8.0_222 OpenJDK 64-Bit Server VM
-```
-
-
-
-
-
-
-
-##### Virtualbox Network 설정
-
-어뎁터1 : NAT
-
-어뎁터2 : 호스트 전용 어뎁터
-
-* IP : 192.168.56.1
-* Subnet : 255.255.255.0
-
-  
-
-
-
-##### Host Network 설정
-
-모든 노드에 공통 적용
-
-/etc/sysconfig/network-scripts/ifcfg-enp0s3 파일편집
+##### /etc/sysconfig/network-scripts/ifcfg-enp0s3 파일 편집
 
 ```ini
 TYPE=Ethernet
@@ -321,33 +72,20 @@ ONBOOT=yes
 GATEWAY=10.20.80.1
 ```
 
+<br/>
 
-
-
-
-```sh
-# yum -y install vim
-# yum -y install epel-release
-# yum -y install pssh
-```
-
-
-
-
+#### 1-6. 모든 VM에 공통 적용
 
 ##### 시스템 업데이트
 
-모든 노드에 공통 적용
-
 ```sh
+# yum -y install epel-release
 # yum -y update
 ```
 
 
 
 ##### swap 메모리 비활성화
-
-모든 노드에 공통 적용
 
 ```sh
 # swapoff -a
@@ -358,211 +96,19 @@ GATEWAY=10.20.80.1
 
 ##### /etc/sysctl.conf 설정
 
-모든 노드에 공통 적용
-
 ```ini
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 ```
 
 * bridge-nf-call-iptables : 컨테이너 네트워크 패킷이 호스트 iptables 설정에 따라 제어되도록 함.
-
 * ipv4.ip_forward : ip_forward를 활성화하면 커널이 처리하는 패킷에 대해서 외부로 forwarding이 가능함.
 
+<br/>
 
+#### 1-7. SELinux 설정
 
-
-
-##### /etc/sysctl.conf 적용
-
-모든 노드에 공통 적용
-
-```sh
-# sysctl -p
-vm.swappiness = 1
-net.bridge.bridge-nf-call-iptables = 1
-net.ipv4.ip_forward = 1
-```
-
-
-
-##### /etc/hosts 수정
-
-master 노드
-
-```ini
-192.168.56.101 localhost
-```
-
-
-
-node1 
-
-```ini
-192.168.56.151 localhost
-```
-
-
-
-node2
-
-```ini
-192.168.56.152 localhost
-```
-
-
-
-
-
-##### 시스템 재부팅
-
-모든 노드에 공통 적용
-
-```sh
-# reboot now
-```
-
-
-
-
-
-### 2. docker 설치
-
-
-
-##### docker 설치
-
-모든 노드에 공통 적용
-
-```sh
-# yum -y remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-engine
-                  
-# yum install -y yum-utils device-mapper-persistent-data lvm2
-
-# yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-    
-# yum -y install http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-1.el7_6.noarch.rpm
-# yum install -y docker-ce docker-ce-cli containerd.io
-```
-
-
-
-##### docker 서비스 등록
-
-모든 노드에 공통 적용
-
-```sh
-# systemctl start docker.service && systemctl enable docker.service
-```
-
-
-
-##### docker-compose 설치
-
-모든 노드에 공통 적용
-
-```sh
-# curl -L https://github.com/docker/compose/releases/download/1.25.0-rc2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-```
-
-
-
-##### docker-compose 실행권한 설정
-
-모든 노드에 공통 적용
-
-```sh
-# chmod ugo+x /usr/local/bin/docker-compose
-```
-
-
-
-##### docker-compose 버전확인
-
-모든 노드에 공통 적용
-
- ```sh
-# docker-compose -v
-docker-compose version 1.25.0-rc2, build 661ac20e
- ```
-
-
-
-### 방화벽 설정
-
-##### 방화벽 비활성화
-
-```sh
-# systemctl disable firewalld
-```
-
-
-
-
-
-| **Protocol** | **Direction** | **Port Range** | **Purpose**             | **Userd By**         |
-| ------------ | ------------- | -------------- | ----------------------- | -------------------- |
-| TCP          | Inbound       | 6443           | Kubernetes API server   | All                  |
-| TCP          | Inbound       | 2379~2380      | etcd server client API  | kube-apiserver, etcd |
-| TCP          | Inbound       | 10250          | Kubelet API             | Self, Control plane  |
-| TCP          | Inbound       | 10251          | kube-scheduler          | Self                 |
-| TCP          | Inbound       | 10252          | kube-controller-manager | Self                 |
-
-##### master 노드
-
-```sh
-# firewall-cmd --permanent --zone=public --add-port=6443/tcp
-# firewall-cmd --permanent --zone=public --add-port=2379-2380/tcp
-# firewall-cmd --permanent --zone=public --add-port=10250/tcp
-# firewall-cmd --permanent --zone=public --add-port=10251/tcp
-# firewall-cmd --permanent --zone=public --add-port=10252/tcp
-# firewall-cmd --reload
-```
-
-
-
-##### worker 노드
-
-| **Protocol** | **Direction** | **Port Range** | **Purpose**       | **Userd By**        |
-| ------------ | ------------- | -------------- | ----------------- | ------------------- |
-| TCP          | Inbound       | 10250          | Kubelet API       | Self, Control plane |
-| TCP          | Inbound       | 30000-32767    | NodePort Services | All                 |
-
-```sh
-# firewall-cmd --permanent --zone=public --add-port=10250/tcp
-# firewall-cmd --permanent --zone=public --add-port=30000-32767/tcp
-# firewall-cmd --reload
-```
-
-
-
-
-
-##### pod network add-on 
-
-| **Configuration**       | **Host(s)** | **Connection type** | **Port/protocol** |
-| ----------------------- | ----------- | ------------------- | ----------------- |
-| Calico networking (BGP) | All         | Bidirectional       | TCP 179           |
-
-```sh
-# firewall-cmd --permanent --zone=public --add-port=179/tcp
-# firewall-cmd --reload
-```
-
-
-
-### SELinux 설정
-
-##### Permissive Mode로 설정
+Permissive Mode로 설정
 
 ```sh
 # setenforce 0
@@ -582,13 +128,96 @@ Max kernel policy version:      31
 
 
 
+<br/>
+
+#### 1-8. 방화벽 설정
 
 
-### 3. kubernetes 설치
+
+`systemctl disable firewalld`명령어로 전체 방화벽을 disable 하거나,<br/>
+
+다음과 같이 각각의 노드별로 방화벽 설정을 진행합니다.
 
 
 
-##### /etc/yum.repos.d/kubernetes.repo 추가
+##### master1.net 방화벽 설정
+
+| **Protocol** | **Direction** | **Port Range** | **Purpose**             | **Userd By**         |
+| ------------ | ------------- | -------------- | ----------------------- | -------------------- |
+| TCP          | Inbound       | 6443           | Kubernetes API server   | All                  |
+| TCP          | Inbound       | 2379~2380      | etcd server client API  | kube-apiserver, etcd |
+| TCP          | Inbound       | 10250          | Kubelet API             | Self, Control plane  |
+| TCP          | Inbound       | 10251          | kube-scheduler          | Self                 |
+| TCP          | Inbound       | 10252          | kube-controller-manager | Self                 |
+
+```sh
+# firewall-cmd --permanent --zone=public --add-port=6443/tcp
+# firewall-cmd --permanent --zone=public --add-port=2379-2380/tcp
+# firewall-cmd --permanent --zone=public --add-port=10250/tcp
+# firewall-cmd --permanent --zone=public --add-port=10251/tcp
+# firewall-cmd --permanent --zone=public --add-port=10252/tcp
+# firewall-cmd --reload
+```
+
+<br/>
+
+##### node[1-2].net 방화벽 설정
+
+| **Protocol** | **Direction** | **Port Range** | **Purpose**       | **Userd By**        |
+| ------------ | ------------- | -------------- | ----------------- | ------------------- |
+| TCP          | Inbound       | 10250          | Kubelet API       | Self, Control plane |
+| TCP          | Inbound       | 30000-32767    | NodePort Services | All                 |
+
+```sh
+# firewall-cmd --permanent --zone=public --add-port=10250/tcp
+# firewall-cmd --permanent --zone=public --add-port=30000-32767/tcp
+# firewall-cmd --reload
+```
+
+
+
+<br/>
+
+##### pod network add-on 방화벽 설정
+
+| **Configuration**       | **Host(s)** | **Connection type** | **Port/protocol** |
+| ----------------------- | ----------- | ------------------- | ----------------- |
+| Calico networking (BGP) | All         | Bidirectional       | TCP 179           |
+
+```sh
+# firewall-cmd --permanent --zone=public --add-port=179/tcp
+# firewall-cmd --reload
+```
+
+
+
+<br/>
+
+#### 1-9. 재부팅
+
+```sh
+# reboot now
+```
+
+<br/>
+
+
+
+## 2. Docker 
+
+
+
+[여기](/devops/devops-docker-install/)를 참고하여 Docker와 Docker compose를 설치합니다.
+
+
+
+<br/>
+
+## 3. kubernetes 설치
+
+<br/>
+
+#### 3-1. /etc/yum.repos.d/kubernetes.repo 추가
 
 모든 노드에 공통 적용
 
@@ -603,9 +232,9 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 ```
 
+<br/>
 
-
-##### kubernetes 설치
+#### 3-2. kubernetes 설치
 
 모든 노드에 공통 적용
 
@@ -613,9 +242,9 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
 # yum install -y kubelet kubeadm kubectl
 ```
 
+<br/>
 
-
-##### kubernetes 서비스 등록
+#### 3-3. kubernetes 서비스 등록
 
 모든 노드에 공통 적용
 
@@ -623,9 +252,9 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
 # systemctl start kubelet && systemctl enable kubelet
 ```
 
+<br/>
 
-
-##### kubernetes 버전 확인
+#### 3-4. kubernetes 버전 확인
 
 ```sh
 # kubelet --version
@@ -634,15 +263,15 @@ Kubernetes v1.15.3
 
 
 
+<br/>
+
+<br/>
+
+## 4. kubernetes master 초기화
 
 
 
-
-### 4. kubernetes master 초기화
-
-
-
-##### kubectl 환경변수 설정
+#### 4-1. kubectl 환경변수 설정
 
 root 계정을 이용해서 kubectl을 실행할 경우 다음 환경 변수를 설정한다.
 
@@ -654,7 +283,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 
 
-##### proxy 서버 설정
+#### 4-2. proxy 서버 설정
 
 필요시 proxy 서버를 설정함.
 
@@ -665,7 +294,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 
 
-##### docker images 조회
+#### 4-3. docker images 조회
 
 ```sh
 # docker images
@@ -676,7 +305,7 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 
 
 
-##### master 초기화
+#### 4-4. master 초기화
 
 master 노드에만 적용함.
 
@@ -820,7 +449,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
 
 
 
-##### kube config 설정
+#### 4-5. kube config 설정
 
 master 노드에서만 진행
 
@@ -836,7 +465,7 @@ master 노드에서만 진행
 
 
 
-##### pod network add on 설치
+#### 4-6. pod network add on 설치
 
 pod network add-on 설치는 Master 노드에서만 합니다.
 
@@ -925,7 +554,7 @@ serviceaccount/calico-kube-controllers unchanged
 
 
 
-##### kube-apiserver 실행 확인
+#### 4-7. kube-apiserver 실행 확인
 
 ```sh
 # docker ps | grep kube-apiserver
@@ -937,7 +566,7 @@ c8741f978bc2        k8s.gcr.io/pause:3.1   "/pause"                 22 minutes a
 
 
 
-##### kubelet 버전확인
+#### 4-8. kubelet 버전확인
 
 ```sh
 # kubectl version
@@ -949,7 +578,7 @@ Server Version: version.Info{Major:"1", Minor:"16", GitVersion:"v1.16.0", GitCom
 
 
 
-##### kube-system pods 조회
+#### 4-9. kube-system pods 조회
 
 ```sh
 # kubectl get pods -n kube-system
@@ -973,7 +602,7 @@ kube-scheduler-localhost.localdomain            1/1     Running             0   
 
 
 
-### 5. kubernetes node join
+## 5. kubernetes node join
 
 
 
@@ -988,7 +617,7 @@ kubeadm join 192.168.56.101:6443 --token id1p6s.ye6l2dt0pqzn5ur2     --discovery
 
 
 
-##### node1.net join
+#### 5-1. node1.net join
 
 node1.net 장비에서 실행함.
 
@@ -1015,7 +644,7 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
 
 
-##### node2.net join
+#### 5-2. node2.net join
 
 node2.net 장비에서 실행함
 
@@ -1044,7 +673,7 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 
 
 
-##### kubernetes cluster 조회
+#### 5-3. kubernetes cluster 조회
 
 마스터 노드에서 실행함.
 
@@ -1074,7 +703,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 
 
-##### kubernetes 노드 상태 조회
+##### 5-4. kubernetes 노드 상태 조회
 
 약 2분 정도 경과후에 확인
 
@@ -1097,9 +726,9 @@ node2.net     Ready    <none>   3m9s   v1.16.0
 
 
 
-### 6. kubernetes 관련 docker 조회
+## 6. kubernetes 관련 docker 조회
 
-##### master 노드
+#### 6-1. master 노드
 
 ```sh
 # docker images
@@ -1119,7 +748,7 @@ k8s.gcr.io/pause                      3.1                 da86e6ba6ca1        21
 
 
 
-##### worker 노드
+#### 6-2. worker 노드
 
 ```sh
 # docker images
@@ -1133,9 +762,9 @@ k8s.gcr.io/pause                      3.1                 da86e6ba6ca1        21
 
 
 
-### kubernetes dashboard
+## 7. kubernetes dashboard
 
-##### dashboard 설치
+#### 7-1. dashboard 설치
 
 ```sh
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
@@ -1187,7 +816,7 @@ kubernetes-dashboard   kubernetes-metrics-scraper-6b97c6d857-4c5r4   1/1     Run
 
 
 
-##### dashboard 계정 생성
+#### 7-2. dashboard 계정 생성
 
 ```sh
 # kubectl create serviceaccount cluster-admin-dashboard-sa
@@ -1199,7 +828,7 @@ clusterrolebinding.rbac.authorization.k8s.io/cluster-admin-dashboard-sa created
 
 
 
-##### dashboard 계정 토큰 확인
+#### 7-3. dashboard 계정 토큰 확인
 
 ```sh
 # kubectl get secret $(kubectl get serviceaccount cluster-admin-dashboard-sa -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
@@ -1210,7 +839,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IjZNT1E1VkxuTlN3RFFoTHdsUDZYWTVpc1FzSEZlN2MwZUdqZFpf
 
 
 
-### kubernetes hello world 실습
+## 9. kubernetes hello world 실습
 
 ##### docker 로그인
 
