@@ -95,7 +95,7 @@ analytics:
 author:
   name             : "권진호"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "http://www.interpark.com"
+  bio              : # "http://www.interpark.com"
   location         : "South Korea"
   email            :
   links:
