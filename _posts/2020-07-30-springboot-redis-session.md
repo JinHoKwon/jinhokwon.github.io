@@ -119,3 +119,51 @@ $ curl -H "Cookie: SESSION=M2ZhODI0OWEtZTAzNC00ZTk4LWI5MWItZWYwMThkYTNjOTRm" loc
 }
 ```
 
+<br/>
+
+
+
+끝으로, 스프링에서는 세션을 처리하기 위해서 다음과 같은 데이터를 Redis에 저장합니다.
+
+* **spring:session:sessions:expires** : 해당 세션의 만료키로 사용됩니다.
+* **spring:session:expirations** : expire time에 삭제될 세션 정보가 기록됩니다.
+* **spring:session:sessions** : 세션과 관련된 정보를 저장합니다. (예 : creationTime,  lastAccessedTime, maxInactiveInterval, sessionAttr)
+
+이를 Redis에 접속하여 확인해 보면 다음과 같습니다.
+
+```sh
+# redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379> keys *
+1) "spring:session:sessions:expires:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+2) "spring:session:expirations:1596065580000"
+3) "spring:session:sessions:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+
+
+127.0.0.1:6379> type "spring:session:sessions:expires:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+string
+
+127.0.0.1:6379> type "spring:session:expirations:1596065580000"
+set
+
+127.0.0.1:6379> type "spring:session:sessions:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+hash
+
+127.0.0.1:6379> get "spring:session:sessions:expires:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+""
+
+127.0.0.1:6379> smembers "spring:session:expirations:1596065580000"
+1) "\xac\xed\x00\x05t\x00,expires:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+
+127.0.0.1:6379> hgetall  "spring:session:sessions:3ee5d9d8-b36c-4819-956c-e833acd0839c"
+1) "maxInactiveInterval"
+2) "\xac\xed\x00\x05sr\x00\x11java.lang.Integer\x12\xe2\xa0\xa4\xf7\x81\x878\x02\x00\x01I\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x02\x00\x00xp\x00\x00\a\b"
+3) "lastAccessedTime"
+4) "\xac\xed\x00\x05sr\x00\x0ejava.lang.Long;\x8b\xe4\x90\xcc\x8f#\xdf\x02\x00\x01J\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x02\x00\x00xp\x00\x00\x01s\x9c\xcf\xa4L"
+5) "sessionAttr:counter"
+6) "\xac\xed\x00\x05sr\x00\x11java.lang.Integer\x12\xe2\xa0\xa4\xf7\x81\x878\x02\x00\x01I\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x02\x00\x00xp\x00\x00\x00\x01"
+7) "creationTime"
+8) "\xac\xed\x00\x05sr\x00\x0ejava.lang.Long;\x8b\xe4\x90\xcc\x8f#\xdf\x02\x00\x01J\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x02\x00\x00xp\x00\x00\x01s\x9c\xcf\xa4L"
+```
+
+
+
