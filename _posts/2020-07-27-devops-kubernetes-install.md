@@ -435,7 +435,7 @@ k8node1.net 장비에서 실행함.
 
 <br/>
 
-#### 8-2. node2.net join
+#### 8-2. k8node2.net join
 
 k8node2.net 장비에서 실행함.
 
