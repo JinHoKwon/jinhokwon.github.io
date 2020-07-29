@@ -2,7 +2,7 @@
 title: Centos 7 환경에서 Kubernetes 설치
 tags: [devops, kubernetes]
 comments: true
-categories: devops
+categories: [devops, kubernetes]
 header:
   teaser: "/assets/images/kubernetes/kubernetes_logo.png"
 ---
