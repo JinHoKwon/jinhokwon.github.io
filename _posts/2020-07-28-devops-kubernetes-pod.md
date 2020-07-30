@@ -32,7 +32,11 @@ Kubernetes는 n개의 컨테이너로 이루어진 Pod를 배포 및 관리하�
 
 ## 2. Pod 실습
 
-#### 2-1. /tmp/spring-boot-rest-pod.yml 파일 생성
+#### 2-1. /tmp/spring-boot-rest-pod.yml 매니페스트 파일 생성
+
+Kubernetes에서는 자원을 생성하기 위한 여러가지 정보를 YML 또는 JSON 파일로 정의할 수 있습니다.<br/>
+
+이를 매니페스트라고 말하며, 기본적으로 매니페스트 파일에 포함되는 정보는 다음과 같습니다.
 
 * **apiVersion** : Kubernetes api 버전
 * **kind** : Kubernetes resource의 종류
@@ -220,6 +224,8 @@ Kubernetes의 Pod는 외부에서 접근할수 없기 때문에,<br/>
 <br/>
 
 #### 2-7. Pod 접속
+
+특정 Pod에 접속하기 위해서는 `--` 이후에 사용할 Shell을 입력하면 됩니다.
 
 ```sh
 # kubectl exec -i -t spring-boot-rest-pod -- /bin/sh
