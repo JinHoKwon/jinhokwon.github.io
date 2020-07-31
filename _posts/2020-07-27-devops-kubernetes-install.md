@@ -406,12 +406,49 @@ Kubernetes 실행에 필요한 사용자 설정을 진행합니다.
 
 <br/>
 
-#### 7-4. pod network add on 설치
+#### 7-4. Pod network add on 설치
 
-Kubernetes용 CNI는 여러가지가 있지만, 그 중에서 Github 기준 가장 많은 Star 수를 기록한 Flannel로 network add on을 설치합니다.
+Kubernetes용 CNI(Container network interface)는 여러가지가 있지만, <br/>
+
+그 중에서 Github 기준 가장 많은 Star 수를 기록한 Flannel로 network add on을 설치합니다.
+
+>Flannel에서는 기본 인터페이스로 enp0s3를 사용하는데, 해당 인터페이스는 현재 VM의 NAT와 연결되어 있기 때문에,
+>
+>Kubernetes 노드간의 통신에 문제가 발생하니, 다운로드 받은 kube-flannel.yml 파일의 약 184번째 라인에서 `--iface=enp0s8`를 추가합니다.
+>
+
+<br/>
+
+##### 7-4-1. kube-flannel.yml 파일 다운로드
 
 ```sh
-# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+# cd /root/download
+# curl -O -L https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
+<br/>
+
+##### 7-4-2. kube-flannel.yml 파일 수정
+
+```yaml
+  containers:
+  - name: kube-flannel
+    image: quay.io/coreos/flannel:v0.10.0-amd64
+    command:
+    - /opt/bin/flanneld
+    args:
+    - --ip-masq
+    - --kube-subnet-mgr
+    - --iface=enp0s8
+```
+
+<br/>
+
+##### 7-4-3. Flannel 설치
+
+
+```sh
+# kubectl apply -f /root/download/kube-flannel.yml
 ```
 
 <br/>
