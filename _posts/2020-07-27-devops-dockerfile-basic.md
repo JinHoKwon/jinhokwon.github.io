@@ -44,9 +44,11 @@ ENTRYPOINT ["java", "-version"]
 ```
 
 * **FROM** : Docker baseimage
+* **ADD** : 로컬 파일을 이미지 내부로 복사합니다.<br/>
+   로컬 파일 형식이 압축 파일인 경우, 압축을 해제하고 풀어서 복사합니다.
 * **ENTRYPOINT** : Docker run 시점에 실행할 명령어
-
 <br/>
+
 
 #### 1-3. Dockerfile 빌드
 
