@@ -21,7 +21,7 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "권진호"
 description              : "An amazing website."
-url                      : https://jinhokwon.github.io/
+url                      : https://jinhokwon.github.io
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/QueSeraSera.png"
