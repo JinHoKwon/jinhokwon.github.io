@@ -37,7 +37,10 @@ Dockerfile을 빌드하면 Docker 이미지가 생성이 됩니다.
 
 ```dockerfile
 FROM openjdk:11-jdk-slim
+# VOLUME /tmp
+# ADD spring-boot-rest-first-0.0.1-SNAPSHOT.jar spring-boot-rest-first-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java", "-version"]
+# ENTRYPOINT ["java","-Dspring.profiles.active=default","-Djava.security.egd=file:/dev/./urandom","-jar","/spring-boot-rest-first-0.0.1-SNAPSHOT.jar"]
 ```
 
 * **FROM** : Docker baseimage
@@ -66,9 +69,12 @@ jinhokwon/jdk11     v1.0                73650d9ebb25        6 minutes ago       
 #### 1-5. Dockerfile 실행
 
 ```sh
-# docker run -i -t -d --name jdk11 jinhokwon/jdk11:v1.0 
+# docker run -i -t -d -p 8080:8080 --hostname spring-boot-rest-first --name jdk11 jinhokwon/jdk11:v1.0 
 9cb75b0c79a6e0cbc315f41eb6322e63e57262a68bdd4cf2c6d2fd8e6caabf72
 ```
+* **-p** : 호스트와 포트 매핑
+* **--hostname** : 호스트명 설정
+* **--name** : 컨테이너명 설정
 
 <br/>
 
