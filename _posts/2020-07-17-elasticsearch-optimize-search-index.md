@@ -6,6 +6,8 @@ categories: devops
 header:
   teaser: "/assets/images/elasticsearch.png"
 ---
+본 문서에서는 검색과 색인을 최적화 하기 위한 일반적인 방법에 대해서 설명하고 있습니다. <br/>
+
 ## 1. 검색 속도 최적화
 
 #### 1-1. 분산 처리를 하기 위해서 적절한 Shard의 갯수를 선정함.
@@ -113,3 +115,4 @@ indexing을 최적화 하기 위해서는 색인이 필요한 문서를 Bulk 단
 * Shard 하나 당 최대 크기 : 10~50GB
 <br/>
 <br/>
+
