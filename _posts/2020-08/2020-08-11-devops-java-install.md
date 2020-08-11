@@ -2,7 +2,7 @@
 title: CentOS 환경에 JDK 14 설치
 tags: [devops, java]
 comments: true
-categories: devops
+categories: [devops, java]
 header:
   teaser: "/assets/images/java/java_logo.png"
 ---
