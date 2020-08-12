@@ -106,20 +106,20 @@ insert into child (child_id, name, parent_id) values (6, 'child3-2', 3);
 
 `@Transactional`을 생략한 경우, 질의 실행 시점마다 새로운 트랜잭션이 시작됩니다.<br/>
 
-예를 들어,  다음과 같이 ①, ②가 실행된 경우
+예를 들어,  다음과 같이 (1), (2)가 실행된 경우
 
 ```java
 @Test
 public void parentLazyChildLazyWithoutTransactionalTest1() throws Exception {
-    Child child1 = childRepository.findById(1L).get(); // ①
-    Child child2 = childRepository.findById(2L).get(); // ②
+    Child child1 = childRepository.findById(1L).get(); // (1)
+    Child child2 = childRepository.findById(2L).get(); // (2)
 }
 ```
 
-DB상 로그는 다음과 같습니다.
+DB상 로그는 다음과 같습니다. 
 
 ```sql
-① 번 실행된 경우
+(1) 실행된 경우
 2020-08-12T00:06:26.123292Z       218 Query     set session transaction read only
 2020-08-12T00:06:26.126612Z       218 Query     SET autocommit=0
 2020-08-12T00:06:26.633422Z       218 Query     select child0_.child_id as child_id1_0_0_, child0_.name as name2_0_0_, child0_.parent_id as parent_i3_0_0_ from child child0_ where child0_.child_id=1
@@ -127,7 +127,7 @@ DB상 로그는 다음과 같습니다.
 2020-08-12T00:06:27.035878Z       218 Query     SET autocommit=1
 2020-08-12T00:06:27.039817Z       218 Query     set session transaction read write
 
-②번 실행된 경우
+(2) 실행된 경우
 2020-08-12T00:06:56.024440Z       218 Query     set session transaction read only
 2020-08-12T00:06:56.027825Z       218 Query     SET autocommit=0
 2020-08-12T00:06:56.040611Z       218 Query     select child0_.child_id as child_id1_0_0_, child0_.name as name2_0_0_, child0_.parent_id as parent_i3_0_0_ from child child0_ where child0_.child_id=2
@@ -183,20 +183,20 @@ public class Child {
 
 @Test
 public void parentLazyChildEagerTest() throws Exception {
-    Child child = childRepository.findById(1L).get();		// ① 
+    Child child = childRepository.findById(1L).get();		// (1) 
     Parent parent = child.getParent();
     Assertions.assertTrue(parent instanceof HibernateProxy);
     Assertions.assertThrows(LazyInitializationException.class, () -> {
-        log.info("{}", parent.getName());					// ②
+        log.info("{}", parent.getName());					// (2)
     });
 }
 ```
 
-그런데, 문제는 이미 ① 번 시점에 Session 은 종료되었기 때문에,<br/>
+그런데, 문제는 이미 (1) 번 시점에 Session 은 종료되었기 때문에,<br/>
 
 반환된 HibernateProxy 객체로 더 이상 진행할 수 있는 작업은 없는 상태가 되버립니다.<br/>
 
-그런 상황에서 ②번과 같은 작업을 요청하게 되면, `LazyInitializationException - no sessions` 예외가 발생하게 됩니다.<br/>
+그런 상황에서 (2)번과 같은 작업을 요청하게 되면, `LazyInitializationException - no sessions` 예외가 발생하게 됩니다.<br/>
 
 <br/>
 
@@ -365,7 +365,7 @@ N개의 엔티티를 조회하기 위해서 N+1 쿼리를 수행하였음을 확
 
 `@Transactional`로 묶여있지 않는 상황이기 때문에, <br/>
 
-①시점에 데이터를 읽어들이고, 트랜잭션은 종료하게 됩니다.<br/>
+(1)시점에 데이터를 읽어들이고, 트랜잭션은 종료하게 됩니다.<br/>
 
 ```java
 public class Parent {
@@ -383,20 +383,20 @@ public class Child {
 
 @Test
 public void parentLazyChildLazyWithoutTransactionalTest2() throws Exception {
-    Child child = childRepository.findById(1L).get();	// ①
+    Child child = childRepository.findById(1L).get();	// (1)
     Parent parent = child.getParent();
     Assertions.assertTrue(parent instanceof HibernateProxy);
     Assertions.assertThrows(LazyInitializationException.class, () -> {
-        String name = parent.getName();					// ② 
+        String name = parent.getName();					// (2) 
     });
 }
 ```
 
-즉, ①번 이하의 실행은 Session이 없는 상황이며,<br/>
+즉, (1)번 이하의 실행은 Session이 없는 상황이며,<br/>
 
-② 시점에는 parent 변수와 매핑된 Session이 없기 때문에 `LazyInitializationException`이 발생하게 됩니다.<br/>
+(2) 시점에는 parent 변수와 매핑된 Session이 없기 때문에 `LazyInitializationException`이 발생하게 됩니다.<br/>
 
-① 시점에 실행된 DB 쿼리는 다음과 같습니다.
+(1) 시점에 실행된 DB 쿼리는 다음과 같습니다.
 
 ```sql
 2020-08-12T01:48:53.573971Z       408 Query     set session transaction read only
@@ -412,17 +412,17 @@ public void parentLazyChildLazyWithoutTransactionalTest2() throws Exception {
     @Test
     @Transactional
     public void parentLazyChildLazyWithTransactionalTest1() throws Exception {
-        Child child = childRepository.findById(1L).get();		// ①
-        Parent parent = child.getParent();						// ②
+        Child child = childRepository.findById(1L).get();		// (1)
+        Parent parent = child.getParent();						// (2)
         Assertions.assertTrue(parent instanceof Parent);
         String name = parent.getName();
         log.info("parent name : {}", name);
     }
 ```
 
-① 번 시점에 데이터를 읽어들이고, 트랜잭션이 유지가 됩니다. <br/>
+(1) 번 시점에 데이터를 읽어들이고, 트랜잭션이 유지가 됩니다. <br/>
 
-그리고, ① 번 시점에서 수행된 쿼리는 다음과 같습니다.
+그리고, (1) 번 시점에서 수행된 쿼리는 다음과 같습니다.
 
 ```sql
 2020-08-12T00:33:40.867538Z       248 Query     select child0_.child_id as child_id1_0_0_, child0_.name as name2_0_0_, child0_.parent_id as parent_i3_0_0_ from child child0_ where child0_.child_id=1
@@ -430,7 +430,7 @@ public void parentLazyChildLazyWithoutTransactionalTest2() throws Exception {
 
 <br/>
 
-② 번 과정에서 수행된 쿼리
+(2) 번 과정에서 수행된 쿼리
 
 ```sql
 2020-08-12T00:33:59.761449Z       248 Query     select parent0_.parent_id as parent_i1_1_0_, parent0_.name as name2_1_0_ from parent parent0_ where parent0_.parent_id=1
