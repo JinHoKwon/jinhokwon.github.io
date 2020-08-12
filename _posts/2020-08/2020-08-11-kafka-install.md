@@ -373,6 +373,11 @@ default.replication.factor=1
 # 이 때, 복제와 관련된 설정값 브로커수보다 작게 설정해야 합니다.
 min.insync.replicas=1
 unclean.leader.election.enable=false
+
+############################# Group Coordinator Settings #############################
+# consumer group의 리밸런싱 시기를 지연합니다. (기본값 : 3초)
+# 운영환경에서는 불필요한 대기시간을 최소화 하기 위해서, 기본값인 3초를 권장함.
+group.initial.rebalance.delay.ms=0
 ```
 
 각 장비별 나머지 설정은 동일하며, broker.id 설정값과 listeners 설정값만 장비별로 다르게 설정합니다.
