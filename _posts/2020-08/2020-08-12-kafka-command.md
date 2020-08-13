@@ -66,6 +66,14 @@ Topic: testTopic        PartitionCount: 3       ReplicationFactor: 1    Configs:
 $ kafka-topics.sh --bootstrap-server kafka1.net:9092 --delete --topic testTopic
 ```
 
+또는 다음과 같이 **`--force`** 옵션을 사용하여 강제로 토픽을 삭제할 수 있습니다.
+
+```sh
+$ kafka-topics.sh --bootstrap-server kafka1.net:9092 --delete --topic testTopic --force
+```
+
+
+
 <br/>
 
 ## 2. Producer
@@ -78,6 +86,21 @@ $ kafka-console-producer.sh --bootstrap-server kafka1.net:9092 --topic testTopic
 >sample2
 >sample3
 ```
+
+그리고 재시도 간격을 5초로 설정할 수 있습니다.
+
+```sh
+$ kafka-console-producer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --producer-property "retry.backoff.ms=5000"
+```
+
+또한 acks 같은 경우 다음과 같이 설정할 수 있습니다.
+
+```sh
+$ kafka-console-producer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --producer-property "retry.backoff.ms=5000" \
+--request-required-acks "all" --producer-property "transactional.id=777" --producer-property="enable.idempotence=true" 
+```
+
+
 
 <br/>
 
@@ -97,14 +120,90 @@ $ kafka-console-producer.sh --bootstrap-server kafka1.net:9092 --topic testTopic
 $ kafka-console-consumer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --from-beginning
 ```
 
+그리고 재시도 간격을 5초로 설정할 수도 있습니다.
+
+```sh
+$ kafka-console-consumer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --from-beginning --consumer-property "retry.backoff.ms=5000"
+```
+
+또한 다음과 같이, 특정 Partion의 정해진 갯수만큼 메시지를 읽어들이는 것 또한 가능합니다.
+
+```sh
+$ kafka-console-consumer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --from-beginning --consumer-property "retry.backoff.ms=5000" --max-messages 3 --partition 0
+$ kafka-console-consumer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --from-beginning --consumer-property "retry.backoff.ms=5000" --max-messages 3 --partition 1
+$ kafka-console-consumer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --from-beginning --consumer-property "retry.backoff.ms=5000" --max-messages 3 --partition 2
+```
+
+
+
 <br/>
 
 #### 3-2. consumer group 기반의 recrod 수신
 
 ```sh
 $ kafka-console-consumer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --consumer-property group.id=test-consumer-group --consumer-property auto.offset.reset=earliest
+sample3
+sample1
+sample2
 ```
 
 <br/>
 
+#### 3-3. 특정 consumer가 shutdown 된 경우
+
+group.initial.rebalance.delay.ms=0 으로 설정된 경우,  곧바로 등록된 consumer가 제거되고, rebalance 가 진행됨.<br/>
+
+group.initial.rebalance.delay.ms=0 이 아닌 경우, delay 시간 만큼 대기한 후 consumer가 제거되고, rebalance 가 진행됨.<br/>
+
+<br/>
+
 ## 4. Consumer Group
+
+#### 4-1.consumer group 리스트
+
+```sh
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --all-groups --list
+test-consumer-group
+```
+
+<br/>
+
+#### 4-2. 특정 consumer group 출력
+
+```sh
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --group test-consumer-group --describe
+Consumer group 'test-consumer-group' has no active members.
+
+GROUP               TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+test-consumer-group testTopic       0          1               1               0               -               -               -
+test-consumer-group testTopic       1          1               1               0               -               -               -
+test-consumer-group testTopic       2          1               1               0               -               -               -
+```
+
+<br/>
+
+#### 4-3. consumer group offset 설정 
+
+```sh
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --group test-consumer-group --topic testTopic --reset-offsets --to-datetime 2020-01-01T00:00:00.000 --dry-run
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --group test-consumer-group --topic testTopic --reset-offsets --to-offset 0 --dry-run
+
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --group test-consumer-group --topic testTopic --reset-offsets --to-datetime 2020-01-01T00:00:00.000 --execute
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --group test-consumer-group --topic testTopic --reset-offsets --to-offset 0 --execute
+```
+
+* **`--to-datetime`** : offset의 위치를 시간으로 설정함.
+* **`--dry-run`** : 실제로 offset을 변경하지 않고, 계산된 offset 값만 출력함.
+* **`--to-offset`** : offset의 위치를 position으로 설정함.
+
+
+
+<br/>
+
+#### 4-4. consumer group 삭제
+
+```sh
+$ kafka-consumer-groups.sh --bootstrap-server kafka1.net:9092 --group test-consumer-group --delete 
+```
+
+<br/>
