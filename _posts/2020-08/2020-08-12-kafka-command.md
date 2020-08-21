@@ -112,6 +112,16 @@ $ kafka-console-producer.sh --bootstrap-server kafka1.net:9092 --topic testTopic
 
 <br/>
 
+#### 2-3. key, value 송신
+
+```sh
+$ kafka-console-producer.sh --bootstrap-server kafka1.net:9092 --topic testTopic --property "parse.key=true" --property "key.separator=:"
+>mykey1:myvalue1
+>mykey2:myvalue2
+```
+
+<br/>
+
 ## 3. Consumer
 
 #### 3-1. record 수신
