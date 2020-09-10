@@ -41,6 +41,18 @@ CONTAINER ID        IMAGE                                                 COMMAN
 0b203ff28fd2        docker.elastic.co/elasticsearch/elasticsearch:7.9.1   "/tini -- /usr/local…"   35 seconds ago      Up 34 seconds       0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp   elasticsearch7
 ```
 
+<br/>
+
+### 2-4. Elasticsearch 설정 확인
+
+```sh
+# docker exec -i -t elasticsearch7 cat /usr/share/elasticsearch/config/elasticsearch.yml
+cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+```
+
+
+
 
 
 <br/>
@@ -76,6 +88,25 @@ b5028c898638        docker.elastic.co/elasticsearch/elasticsearch:7.9.1   "/tini
 ```
 
 <br/>
+
+### 3-4. Kibana 설정 확인
+
+```sh
+# docker exec -i -t kibana7 cat /usr/share/kibana/config/kibana.yml
+#
+# ** THIS IS AN AUTO-GENERATED FILE **
+#
+
+# Default Kibana configuration for docker target
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+monitoring.ui.container.elasticsearch.enabled: true
+```
+
+<br/>
+
+
 
 ## 4. Kibana
 
