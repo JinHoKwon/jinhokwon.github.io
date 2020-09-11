@@ -111,3 +111,33 @@ monitoring.ui.container.elasticsearch.enabled: true
 ## 4. Kibana
 
 ![welcome_kibana](/assets/images/kibana/welcome_kibana.png)
+
+<br/>
+
+
+
+## 5. Cerebro
+
+### 5-1. Cerebro 설치
+
+```sh
+# docker pull lmenezes/cerebro
+```
+
+<br/>
+
+### 5-2. Cerebro 실행
+
+```sh
+# docker run -d -p 9000:9000 --link elasticsearch7:localhost --name cerebro \
+-e "CEREBRO_PORT=9000" -e "ELASTICSEARCH_HOST=http://localhost:9200" lmenezes/cerebro
+```
+
+<br/>
+
+### 5-3. Cerebro
+
+![welcome_cerebro](/assets/images/cerebro/cerebro.png)
+
+
+
