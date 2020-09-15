@@ -95,7 +95,27 @@ header:
 
 <br/>
 
+#### 1-8. SELinux Permissive 설정
 
+/etc/sysconfig/selinux 파일 편집
+
+```ini
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=permissive
+# SELINUXTYPE= can take one of these three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected. 
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+```
+
+<br/>
+
+<br/>
 
 ## 2. Kafka 환경변수 설정
 
@@ -149,7 +169,6 @@ admin.serverPort=8088
   2888은 동기화를 위한 포트, 3888은 클러스터 구성시 leader를 선출하기 위한 포트
   zookeeper를 싱글로 운영할 경우 설정하지 않아도 됨.
   만약, zookeeper ensemble을 localhost에 구축하기 위해서는 각각의 zookeeper 마다 포트 번호가 달라야 함.
-
   ```properties
   server.1=localhost:2888:3888
   server.2=localhost:2889:3889
