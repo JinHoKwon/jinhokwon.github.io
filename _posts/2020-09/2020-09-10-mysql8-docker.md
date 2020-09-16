@@ -8,15 +8,23 @@ header:
 ---
 본 문서에서는 Docker 환경에서 Mysql 8 버전을 설치하고 실행하는 방법에 대해서 설명하고 있습니다. <br/>
 
+## 1. Docker 설치
 
+[여기](/devops/devops-docker-install/)를 참고하여 Docker를 설치합니다.
 
-## Mysql 8
+<br/>
+
+## 2. Mysql 8
+
+### 2-1. mysql image pull
 
 ```sh
 # docker pull mysql:8
 ```
 
 <br/>
+
+### 2-2. run mysql image
 
 ```sh
 # docker run --name mysql8 -e MYSQL_ROOT_PASSWORD=1111 -p 3306:3306 -d mysql:8
@@ -25,6 +33,8 @@ header:
 
 <br/>
 
+### 2-3. mysql container status
+
 ```sh
 # docker ps
 CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                                                NAMES
@@ -32,6 +42,8 @@ CONTAINER ID        IMAGE                                   COMMAND             
 ```
 
 <br/>
+
+### 2-4. enable mysql log 
 
 ```sh
 # docker exec -i -t mysql8 mysql -u root -p
@@ -48,9 +60,21 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> quit;
-Bye
+mysql> set global general_log=1;
+mysql> show variables like 'general_log_file';
++------------------+---------------------------------+
+| Variable_name    | Value                           |
++------------------+---------------------------------+
+| general_log_file | /var/lib/mysql/665afd49d1d9.log |
++------------------+---------------------------------+
+1 row in set (0.01 sec)
+
+mysql> ctrl + p + q esacpe docker
+
+# docker exec -i -t mysql8 tail -f /var/lib/mysql/665afd49d1d9.log
 ```
 
 <br/>
+
+
 
