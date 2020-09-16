@@ -56,12 +56,60 @@ Docker의 최신버전은 https://docs.docker.com/compose/release-notes/ 에서 
 
 <br/>
 
+##### Centos8 환경에서 달라진 부분
+
+Centos8 환경에서는 `containerd.io` 의존성 문제로 인하여,
+
+```sh
+# yum install docker-ce docker-ce-cli containerd.io
+Last metadata expiration check: 0:01:57 ago on Tue 15 Sep 2020 07:50:22 PM EDT.
+Error: 
+ Problem: package docker-ce-3:19.03.12-3.el7.x86_64 requires containerd.io >= 1.2.2-3, but none of the providers can be installed
+  - cannot install the best candidate for the job
+  - package containerd.io-1.2.10-3.2.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.13-3.1.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.13-3.2.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.2-3.3.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.2-3.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.4-3.1.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.5-3.1.el7.x86_64 is filtered out by modular filtering
+  - package containerd.io-1.2.6-3.3.el7.x86_64 is filtered out by modular filtering
+(try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
+```
+
+<br/>
+
+DNF (Dandified Yum) 패키지 설치 프로그램을 이용하여 설치해야 합니다.
+
+```sh
+# dnf install docker-ce --nobest
+```
+
+
+
+<br/>
+
 #### 1-5. Docker 버전 확인
 
 ```sh
 # docker --version
 Docker version 19.03.12, build 48a66213fe
 ```
+
+```sh
+# docker version        
+Client: Docker Engine - Community
+ Version:           19.03.12
+ API version:       1.40
+ Go version:        go1.13.10
+ Git commit:        48a66213fe
+ Built:             Mon Jun 22 15:46:54 2020
+ OS/Arch:           linux/amd64
+ Experimental:      false
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+```
+
+
 
 <br/>
 
