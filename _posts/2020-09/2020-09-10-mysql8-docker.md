@@ -31,6 +31,16 @@ header:
 665afd49d1d958bac99b2f414c78e62cd81ef26253f29c862bac2415360fa0fd
 ```
 
+```sh
+# docker run --name mysql8 -e MYSQL_ROOT_PASSWORD=1111 -p 3306:3306 -d mysql:8 \
+--general_log=1 \
+--general_log_file=/var/lib/mysql/general.log \
+--innodb_print_all_deadlocks=1 \
+--log_error=/var/lib/mysql/error.log
+```
+
+
+
 <br/>
 
 ### 2-3. mysql container status
