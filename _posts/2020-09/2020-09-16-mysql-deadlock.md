@@ -1,3 +1,11 @@
+---
+title: MySQL Deadlock Tip 
+comments: true
+tags: [devops, docker]
+categories: devops
+header:
+  teaser: "/assets/images/mysql/mysql_logo.png"
+---
 
 
 본 문서에서는 서로 다른 세션에서 동시에 트랜잭션을 진행할  경우 발생 할 수 있는 데드락 상황에 대해서 설명하고 있습니다.
