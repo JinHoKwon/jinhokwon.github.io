@@ -79,9 +79,21 @@ PONG
 localhost:6379> quit
 ```
 
+<br/>
 
 
 
+### 2-6. Redis log
+
+```sh
+# docker logs -f redis6
+1:C 21 Sep 2020 23:46:32.203 # Redis version=6.0.8, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 21 Sep 2020 23:46:32.203 # Configuration loaded
+1:M 21 Sep 2020 23:46:32.204 * Running mode=standalone, port=6379.
+1:M 21 Sep 2020 23:46:32.204 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 21 Sep 2020 23:46:32.204 # Server initialized
+1:M 21 Sep 2020 23:46:32.204 * Ready to accept connections
+```
 
 
 
