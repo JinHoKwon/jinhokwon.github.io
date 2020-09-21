@@ -1,8 +1,8 @@
 ---
 title: Docker 기반의 Mysql8 설치 및 실행
 comments: true
-tags: [devops, docker]
-categories: devops
+tags: [devops, docker, mysql]
+categories: [devops, mysql]
 header:
   teaser: "/assets/images/mysql/mysql_logo.png"
 ---
