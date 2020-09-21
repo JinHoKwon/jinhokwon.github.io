@@ -27,7 +27,7 @@ header:
 ### 2-2. Run Redis image
 
 ```sh
-# docker run -d --name redis6 redis:6.0 --appendonly yes
+# docker run -d -p 16379:6379 --name redis6 redis:6.0 --appendonly yes
 docker8e30ec332a4622337570b57c206c1fbcb5da14fd4d4846e1ccc2685a4d4a5065
 ```
 
@@ -51,6 +51,22 @@ CONTAINER ID      IMAGE                 COMMAND          CREATED          STATUS
 # docker exec -i -t redis6 redis-cli -h localhost -p 6379 ping
 PONG
 ```
+
+<br/>
+
+```sh
+# telnet 127.0.0.1 16379
+telnetTrying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+ping
++PONG
+quit
++OK
+Connection closed by foreign host.
+```
+
+
 
 <br/>
 
