@@ -10,11 +10,11 @@ header:
 
 ## Redis migration
 
-### 서버 접속 정보 정리
+### 사전 준비 과정
 
-* Source : redis6a (port : 26379)
+데이터 마이그레이션을 도커 기반으로 테스트 진행하기 위한
 
-* Target : redis6b (port : 36379)
+원본 redis6a, 타겟 redis6b 이미지를 다음과 같이 준비합니다.
 
 ```sh
 # docker run -d -p 26379:6379 --name redis6a redis:6.0 --appendonly no --port 6379
@@ -51,7 +51,7 @@ header:
 2) "/data"
 ```
 
-
+<br/>
 
 ### rump 설치
 
@@ -98,8 +98,12 @@ Usage of ./rump:
 
 ### rump를 사용한 데이터 마이그레이션
 
+Elasticache 와 같은 클라우드 환경에서는 dump.rdb 기반으로 
+
+데이터 마이그레이션을 진행할 수 없기때문에, rump와 같은 데이터 마이그레이션 툴을 사용해야 합니다.
+
 ```sh
-./rump -from redis://127.0.0.1:26379 -to redis://127.0.0.1:36379
+# rump -from redis://127.0.0.1:26379 -to redis://127.0.0.1:36379
 rrww
 signal: exit
 done
@@ -120,20 +124,25 @@ done
 데이터 마이그레이션 대상 서버의 appendonly 옵션이 no로 설정되어 있어야 합니다.
 
 ```sh
-# docker cp redis6:/data/dump.rdb .
-# docker stop redis61
-# docker cp dump.rdb redis61:/data/
-# docker start redis61
+# docker cp redis6a:/data/dump.rdb .
+# docker stop redis6b
+# docker cp dump.rdb redis6b:/data/
+# docker start redis6b
 ```
 
 <br/>
 
 ### 데이터 마이그레이션 체크
 
+기존에 redis6b가 가지고 있었던 key2, key4와 함께 key1, key3이 추가되었음을 확인합니다.
+
 ```sh
-# docker exec -i -t redis61 redis-cli -h localhost -p 6379 
+# docker exec -i -t redis6b redis-cli -h localhost -p 6379 
 localhost:6379> keys *
 1) "key1"
+1) "key2"
+1) "key3"
+1) "key4"
 ```
 
 <br/>
@@ -141,7 +150,7 @@ localhost:6379> keys *
 ### appendonly 설정 복원
 
 ```sh
-# docker exec -i -t redis61 redis-cli -h localhost -p 6379 
+# docker exec -i -t redis6b redis-cli -h localhost -p 6379 
 localhost:6379> config set appendonly yes
 localhost:6379> quit
 ```
@@ -151,7 +160,7 @@ localhost:6379> quit
 ### docker restart
 
 ```sh
-# docker exec -i -t redis6 redis-cli -h localhost -p 6379            
+# docker exec -i -t redis6a redis-cli -h localhost -p 6379            
 localhost:6379> config get appendonly
 1) "appendonly"
 2) "yes"
