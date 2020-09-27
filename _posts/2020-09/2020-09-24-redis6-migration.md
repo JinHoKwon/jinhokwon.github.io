@@ -71,3 +71,25 @@ localhost:6379localhost:6379> quit
 
 
 
+
+
+## Redis migration tip
+
+### Get remote dump.rdb
+
+redis1.net 에 저장된 데이터를 my-dump.rdb 파일로 저장
+
+```sh
+# redis-cli -h redis1.net -p 6379 --rdb my-dump.rdb
+```
+
+
+
+
+
+```sh
+
+# /System/Volumes/Data/Users/bolt/Library/Python/2.7/bin/rdb --command protocol my-dump.rdb | redis-cli -h localhost -p 33679 --pipe
+
+```
+
