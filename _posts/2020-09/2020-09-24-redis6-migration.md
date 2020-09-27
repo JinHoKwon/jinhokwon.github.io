@@ -183,11 +183,3 @@ redis1.net 에 저장된 데이터를 my-dump.rdb 파일로 저장
 
 
 
-
-
-```sh
-
-# /System/Volumes/Data/Users/bolt/Library/Python/2.7/bin/rdb --command protocol my-dump.rdb | redis-cli -h localhost -p 33679 --pipe
-
-```
-
