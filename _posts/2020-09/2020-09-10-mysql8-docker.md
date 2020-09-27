@@ -176,7 +176,7 @@ mysql> ctrl + p + q esacpe docker
 
 ### 3-1. 샘플 데이터베이스 생성
 
-```mysql
+```sql
 DROP IF EXISTS DATABASE testDB;
 CREATE DATABASE testDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE testDB;
@@ -186,7 +186,7 @@ USE testDB;
 
 ### 3-2. 샘플 테이블 생성
 
-```mysql
+```sql
 CREATE TABLE data (id INT PRIMARY KEY) ENGINE = INNODB;
 ```
 
@@ -279,4 +279,24 @@ Record lock, heap no 2 PHYSICAL RECORD: n_fields 3; compact format; info bits 0
 ```
 
 
+
+<br/>
+
+<br/>
+
+## 4. Mysql 설정확인
+
+### 4-1. isolation 
+
+```sql
+mysql> SHOW VARIABLES WHERE VARIABLE_NAME='tx_isolation';
++---------------+-----------------+
+| Variable_name | Value           |
++---------------+-----------------+
+| tx_isolation  | REPEATABLE-READ |
++---------------+-----------------+
+1 row in set (0.00 sec)
+```
+
+<br/>
 
