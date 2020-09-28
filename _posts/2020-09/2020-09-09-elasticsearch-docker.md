@@ -141,3 +141,91 @@ monitoring.ui.container.elasticsearch.enabled: true
 
 
 
+
+
+## 6. docker-compose
+
+<br/>
+
+### 6-1. docker-compose.yml 
+
+```yaml
+version: '3.6'
+services:
+  elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.9.2'
+    container_name: es01
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - node.name="es01"
+      - cluster.name="es-docker-cluster"
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elastic
+
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:7.9.2'
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=["http://es01:9200"]
+    depends_on:
+      - elasticsearch
+    networks:
+      - elastic
+
+  cerebro:
+    image: 'lmenezes/cerebro'
+    container_name: 'cerebro'
+    ports:
+      - "9000:9000"
+    environment:
+      - "CEREBRO_PORT=9000"
+      - "ELASTICSEARCH_HOST=http://es01:9200"
+    networks:
+      - elastic
+
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
+```
+
+<br/>
+
+### 6-2. 실행, 중지, 제거
+
+```sh
+# docker-compose -f docker-compose.yml up -d
+# docker-compose -f docker-compose.yml stop
+# docker-compose -f docker-compose.yml rm 
+```
+
+<br/>
+
+### 6-3. 각각 접속
+
+```sh
+# chrome 127.0.0.1:9200
+# chrome 127.0.0.1:5601
+# chrome 127.0.0.1:9000
+```
+
+<br/>
+
