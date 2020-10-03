@@ -2,7 +2,7 @@
 title: Docker 기반의 Elasticsearch 설치 및 실행
 comments: true
 tags: [devops, elasticsearch]
-categories: devops
+categories: [devops, elasticsearch]
 header:
   teaser: "/assets/images/elasticsearch.png"
 ---
