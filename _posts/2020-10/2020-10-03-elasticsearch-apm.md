@@ -178,13 +178,13 @@ Kibana > Left menu > Observability > APM 클릭
 
 ### 7-1. APM Home 
 
-![apm_home](imgs/apm_home.png)
+![apm_home](/assets/images/kibana/apm_home.png)
 
 <br/>
 
 ### 7-2. APM Services
 
-![apm_service](imgs/apm_service.png)
+![apm_service](/assets/images/kibana/apm_service.png)
 
 <br/>
 
