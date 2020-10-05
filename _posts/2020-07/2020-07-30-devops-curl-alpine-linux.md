@@ -1,5 +1,5 @@
 ---
-title: alphine 리눅스에 curl 설치
+title: alpine 리눅스에 curl 설치
 tags: [devops, curl]
 comments: true
 categories: devops
