@@ -177,7 +177,7 @@ mysql> ctrl + p + q esacpe docker
 ### 3-1. 샘플 데이터베이스 생성
 
 ```sql
-DROP IF EXISTS DATABASE testDB;
+DROP DATABASE IF EXISTS testDB;
 CREATE DATABASE testDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE testDB;
 ```
