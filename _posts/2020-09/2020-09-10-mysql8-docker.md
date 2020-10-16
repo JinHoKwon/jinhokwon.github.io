@@ -54,8 +54,8 @@ services:
         container_name: mysql8
         image: mysql:8
         environment:
-          MYSQL_DATABASE: test_db
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testDB
+          MYSQL_ROOT_PASSWORD: 1111
           MYSQL_ROOT_HOST: '%'
         ports:
           - 3306:3306        
@@ -67,8 +67,6 @@ services:
             soft: 65536
             hard: 65536
 ```
-
-
 
 
 
