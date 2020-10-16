@@ -33,12 +33,42 @@ header:
 
 ```sh
 # docker run --name mysql8 -e MYSQL_ROOT_PASSWORD=1111 -p 3306:3306 -d mysql:8 \
+--ulimit nofile=262144:262144 \
 --max_connections=4096 \
 --general_log=1 \
 --general_log_file=/var/lib/mysql/general.log \
 --innodb_print_all_deadlocks=1 \
 --log_error=/var/lib/mysql/error.log
 ```
+
+
+
+또는
+
+##### docker-compose.yml
+
+```yaml
+version: "3"
+services:
+    test_database:
+        container_name: mysql8
+        image: mysql:8
+        environment:
+          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_HOST: '%'
+        ports:
+          - 3306:3306        
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+          nofile:
+            soft: 65536
+            hard: 65536
+```
+
+
 
 
 
