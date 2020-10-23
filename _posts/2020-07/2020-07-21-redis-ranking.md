@@ -19,7 +19,7 @@ Redis cluster 환경에서는 Primary redis node 와 slave redis node 간의
 
 ## 2. Redis Ranking 이해
 
-
+<br/>
 
 #### 2-1. Redis 서버 실행 및 초기화
 
@@ -29,6 +29,26 @@ Redis cluster 환경에서는 Primary redis node 와 slave redis node 간의
 localhost:6379> flushall
 localhost:6379> OK
 ```
+
+<br/>
+
+또는 다음과 같이 docker 기반으로 실행함.
+
+```sh
+# docker run -d -p 26379:6379 --name redis6-test redis:6.0 --appendonly yes --port 6379
+```
+
+<br/>
+
+docker 기반의 redis 접속
+
+```sh
+# docker exec -i -t redis6-test redis-cli
+```
+
+
+
+
 
 <br/>
 
@@ -85,6 +105,19 @@ localhost:6379> zrevrange bbs 0 -1 withscores
 6) "1"
 7) "ebs"
 8) "1"
+```
+
+<br/>
+
+#### 2-4. zscore : 맴버 점수 조회
+
+>zscore <key> [member] 
+
+kbs의 점수를 조회합니다.
+
+```sh
+localhost:6379> zscore bbs kbs
+"3"
 ```
 
 <br/>
@@ -164,3 +197,41 @@ localhost:6379> zrevrank bbs kbs
 ```
 
 이 때, 반환값 +1을 해주어야 올바른 등수가 됩니다.
+
+
+
+#### 2-9. zscan : 목록 조회
+
+> zscan <key> <cursor>
+
+첫번째 결과가 다음 cursor 값인데 이것이 0이 나올때 까지 계속해서 호출하면 됩니다.
+
+```sh
+localhost:6379> zadd book 1 "isbn01" 1 "isbn02" 1 "isbn03" 1 "isbn04" 1 "isbn05" 1 "isbn06" 1 "isbn07"
+localhost:6379> zadd book 1 "isbn08" 1 "isbn09" 1 "isbn10" 1 "isbn11" 1 "isbn12" 1 "isbn13" 1 "isbn14"
+localhost:6379> zadd book 1 "isbn15" 1 "isbn16" 1 "isbn17" 1 "isbn18" 1 "isbn19" 1 "isbn20" 1 "isbn21"
+```
+
+첫번째 스캔
+
+```sh
+127.0.0.1:6379> zscan book 0 count 5
+1) "1"
+2)  1) "isbn01"
+    2) "1"
+    3) "isbn02"
+    4) "1"
+```
+
+두번째 스캔
+
+```sh
+127.0.0.1:6379> zscan book 1 count 5
+1) "0"
+2)  1) "isbn20"
+    2) "1"
+    3) "isbn21"
+    4) "1"
+```
+
+두번째 스캔 결과, next cursor의 값이 0이므로 추가 조회가 필요하지 않음.
