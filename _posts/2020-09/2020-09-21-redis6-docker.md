@@ -27,11 +27,11 @@ header:
 ### 2-2. Run Redis image
 
 ```sh
-# docker run -d -p 16379:6379 --name redis6 redis:6.0 --appendonly yes --port 6379
+# docker run -d -p 16379:6379 --name redis6 redis:6.0 --appendonly yes --port 6379 --bind "0.0.0.0"
 docker8e30ec332a4622337570b57c206c1fbcb5da14fd4d4846e1ccc2685a4d4a5065
 ```
 
-
+* **`--bind`** : 바인딩할 주소 
 
 <br/>
 
