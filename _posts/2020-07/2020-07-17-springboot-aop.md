@@ -486,3 +486,63 @@ Disconnected from the target VM, address: '127.0.0.1:58224', transport: 'socket'
 Process finished with exit code 0
 ```
 
+<br/>
+
+## 4. DI
+
+DI는 의존성 주입(Dependency Injection)의 줄임말이며,
+
+이러한 의존성 주입방법에는 Field Injection, Setter Injection, Constructor Inject 이 있지만,
+
+이 중에서, Construct Injection을 권장하고 있으며,
+
+IntelliJ 에서도 constructor based dependency injection을 권장하고 있습니다.
+
+```
+Field injection is not recommended … Always use constructor based dependency injection in your beans
+```
+
+<br/>
+
+
+
+### 4-1. 생성자 주입의 장점
+
+의존관계가 생성자에 정의되어 있기 때문에, 컴파일 타임에 오류를 발견할 수 있습니다.
+
+생성자로 부터 주입받기 때문에, 주입 받는 변수를 final로 선언할 수 있습니다. (즉, 주입된 이후, 해당 주입된 객체는 변경할 수 없습니다.)
+
+생성자 주입을 하게 될 경우, 실행시점에 순환 참조 이슈를 조기에 발견할 수 있습니다.
+
+```
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+```
+
+ 
+
+
+
+<br/>
+
+## 5. IoC
+
+생성된 Bean이 필요한 Container에 Spring Framework가 알아서 주입해 주는 과정으로,
+
+보통 전통적인 개발과정에서는 의존관계의 설정을 개발자가 직접해주었다면,
+
+Spring Framework 환경에서는 특정 기능을 사용하기 위해서 필요한 Bean을 생성해 놓으면,
+
+Spring Framework가 알아서 의존관계를 설정해 줍니다. 그리고 이러한 과정을 요약하여 `제어의 역전`이라고
+
+말합니다.
+
+
+
+<br/>
+
