@@ -1,5 +1,5 @@
 ---
-title: Layered architecture
+title: Kafka docker-compose
 comments: true
 tags: [devops, kafka]
 categories: [kafka]
