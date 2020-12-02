@@ -93,6 +93,9 @@ services:
     environment:
       ZK_HOSTS: "zookeeper:2181"
       APPLICATION_SECRET: "random-secret"
+     #KAFKA_MANAGER_AUTH_ENABLED: "true"		# 인증이
+     #KAFKA_MANAGER_USERNAME: username			# 필요한 경우에
+     #KAFKA_MANAGER_PASSWORD: password 			# 설정합니다.
 ```
 
 * KAFKA_CREATE_TOPICS 이 올바르게 적용되기 위해서, 내부 포트번호를 9092로 설정합니다.
