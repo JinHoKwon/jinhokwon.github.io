@@ -30,8 +30,9 @@ Kafka의 메세지가 저장될 경로의 디렉토리를 다음과 같이 초�
 version: '2' 
 services:
   zookeeper:
-    container_name: local-zookeeper
-    image: wurstmeister/zookeeper:3.4.6
+    hostname: zookeeper
+    container_name: zookeeper
+    image: zookeeper:3.5.8
     ports:
       - "2181:2181"
   kafka1:
@@ -79,6 +80,19 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/kafka2:/kafka2
+  kafka-manager:
+  	hostname: kafka-manager
+  	container_name: kafka-manager
+    image: hlebalbau/kafka-manager:stable
+    depends_on:
+      - zookeeper
+      - kafka1
+      - kafka2
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "random-secret"
 ```
 
 * KAFKA_CREATE_TOPICS 이 올바르게 적용되기 위해서, 내부 포트번호를 9092로 설정합니다.
@@ -153,4 +167,51 @@ tail -f /opt/kafka_2.12-2.3.0/logs/server.log
 ```
 
 <br/>
+
+<br/>
+
+## 3. Kafka Manager
+
+### 3-1. Add Cluster
+
+* Cluster Name : myKafkaCluster
+* Cluster Zookeeper Hosts : zookeeper:2181/kafka
+* Kafka Version : 2.3.0
+* Enable JMX Polling (Set JMX_PORT env variable before starting kafka server) : Check
+* JMX with SSL : Check
+* Poll consumer information (Not recommended for large # of consumers if ZK is used for offsets tracking on older Kafka versions) : Check
+* Enable Active OffsetCache (Not recommended for large # of consumers) : Check
+* Display Broker and Topic Size (only works after applying [this patch](https://issues.apache.org/jira/browse/KAFKA-1614)) : Check
+* brokerViewThreadPoolSize : 2
+* offsetCacheThreadPoolSize : 2
+* kafkaAdminClientThreadPoolSize : 2
+<br/>
+
+### 3-2. Add Partitions
+
+Cluster > myKafkaCluster > Topics > test_topic > Add Partitions
+* Topic : test_topic
+* Partitions : 3
+* Brokers : kafka1, kafka2
+Add Partitons 버튼 클릭
+
+<br/>
+
+### 3-3. Manual Partition Assignments
+
+Cluster > myKafkaCluster > Topics > test_topic > Manual Partition Assignments
+
+* Partition 0 : broker 2
+* Partition 1 : broker 2
+* Partition 2 : broker 1
+
+Save Partition Assignments 버튼 클릭
+
+그리고
+
+Cluster > myKafkaCluster > Topics > test_topic > Run Reassign Partitions 버튼을 클릭하면 
+
+Topic > Partitions by Broker 화면에 변경된 Partition 정보가 표시됩니다.
+
+
 
