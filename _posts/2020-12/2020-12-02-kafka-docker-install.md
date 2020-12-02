@@ -99,24 +99,16 @@ services:
 ```
 
 * KAFKA_CREATE_TOPICS 이 올바르게 적용되기 위해서, 내부 포트번호를 9092로 설정합니다.
-
-* kafka1, kafka2 컨테이너는 KAFKA_ZOOKEEPER_CONNECT 에 설정된  zookeeper:2181/kafka를 공유하기 때문에,
-
-    동일한 클러스터안에 포함되게 됩니다. 
-
-    만약, kafka1, kafka2를 서로 다른 클러스터로 만드려면, KAFKA_ZOOKEEPER_CONNECT를 다음과 같이 설정하면 됩니다.
-
-    ```yaml
-    kafka1:
-    	KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka1
-    kafka2:
-    	KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka2
-    ```
-
-    
+* kafka1, kafka2 컨테이너는 KAFKA_ZOOKEEPER_CONNECT 에 설정된  zookeeper:2181/kafka를 공유하기 때문에,   동일한 클러스터안에 포함되게 됩니다. 
+만약, kafka1, kafka2를 서로 다른 클러스터로 만드려면, KAFKA_ZOOKEEPER_CONNECT를 다음과 같이 설정하면 됩니다.
+```yaml
+kafka1:
+  KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka1
+kafka2:
+  KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka2
+```
 
 <br/>
-
 <br/>
 
 ## 2. Kafka
