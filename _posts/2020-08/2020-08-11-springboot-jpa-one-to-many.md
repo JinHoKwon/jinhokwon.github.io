@@ -20,7 +20,7 @@ header:
 * ```java
   // Parent와 Child는 1:N의 관계이기 때문에, 관계의 주인은 N쪽에 위치한 Child 입니다.
   public class Parent {
-      @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+      @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
       @NonNull
       Set<Child> children = new LinkedHashSet<>();
   }
@@ -123,7 +123,7 @@ public class Parent {
     
     // 추가로, Many(다)쪽을 저장하는 Collection 을 Set으로 한 이유는 JPA 환경에서 발생할 수 있는 n+1 문제를 
     // 방지하기 위해서 Set을 사용합니다. (나중에 n+1 문제 소개할 때 다시 한 번 더 언급합니다.)
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @NonNull
     Set<Child> children = new LinkedHashSet<>();
 
